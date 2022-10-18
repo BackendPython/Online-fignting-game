@@ -7,10 +7,15 @@ def home(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
             return redirect('battle:home')
     else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html')
+        user_form = UserCreationForm()
+        
+    context = {
+        'user_form': user_form
+    }
+    
+    return render(request, 'registration/signup.html', context)
