@@ -1,10 +1,11 @@
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render, redirect, reverse
 from rest_framework.response import Response
+from battle.serializer import BattleApi
 from rest_framework import permissions
+from django.http import JsonResponse
 from battle.models import *
 from battle.form import *
-from battle.serializer import BattleApi
 
 def home(request):
     return render(request, 'pages/home.html')
@@ -81,3 +82,12 @@ def battle_single_delete(request, pk):
     return Response("Successfull deleted")
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
+def all_players_count(request):
+	if request.method == "POST":
+		el_id = request.POST.get("el_id")
+		val = request.POST.get("all_players")
+		rate = Battle.objects.get(id=el_id)
+		rate.all_players = val
+		rate.save()
+		return JsonResponse({"success": "true", "score": val}, safe=False)
+	return JsonResponse({"success": "false"})

@@ -18,7 +18,7 @@
   </head>
   <body>
     <!-- full site -->
-    <div class="full" onclick="openFull()">
+    <div class="full">
       <!-- rotation phone -->
       <img
         src="{% static 'images/icons/roate-icon.png' %}"
@@ -29,6 +29,12 @@
 
       <!-- select menu -->
       <div class="select">
+        {% csrf_token %}
+        <form method="post" id="{{ battle_id.id }}" class="login-form">
+          <button class="online" type="submit">
+            <i class="fa-solid fa-robot"></i> Online
+          </button>
+        </form>
         <button class="computer" type="submit">
           <i class="fa-solid fa-robot"></i> Botga qarshi
         </button>
@@ -50,6 +56,7 @@
       <!-- end winner page -->
 
       <!----------------------------------------------- battle time html ----------------------------------------------->
+      <div class="all_decive"></div>
       <div class="heals">
         <!-- player -->
         <div class="player-1">
@@ -496,6 +503,7 @@
 
     <!------------------------------------------------ script ------------------------------------------------>
     <script src="{% static 'js/battle.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <noscript
       ><style>
         .full {
@@ -513,6 +521,7 @@
             let reload_button = document.querySelector('.reload-game')
             let winner_page = document.querySelector('.winner-page')
             const character = document.querySelector('.character')
+            let all_decive = document.querySelector('.all_decive')
             let computerBtn = document.querySelector('.computer')
             let fireball = document.querySelectorAll('.fireball')
             let survivalBtn = document.querySelector('.survival')
@@ -532,6 +541,7 @@
             let gameStart = false;
             let survival = false;
             let media = false;
+            let all_number = 0
 
 
             // fullscreen
@@ -593,7 +603,12 @@
                 player_details.jump = data.player_jump
                 player_details.blow_turn = data.player_blow_turn
                 player_details.winner = data.player_winner
-                console.log(data);
+                rival_details.heal = data.rival_heal
+                rival_details.attack = data.rival_attack
+                rival_details.jump = data.rival_jump
+                rival_details.blow_turn = data.rival_blow_turn
+                rival_details.winner = data.rival_winner
+                all_number = data.all_players
               }
               }, 10);
             // functions
@@ -655,7 +670,7 @@
 
             function player_jump() {
                 // let player_bottom = parseInt(character.style.bottom) + 10
-                player_details.jump = true;
+                player_details.jump = '';
                 character.style.bottom = '5%';
 
                 setTimeout(() => {
@@ -668,7 +683,7 @@
 
             function rival_jump() {
                 rival.forEach(function(rival){
-                rival_details.jump = true;
+                rival_details.jump = '';
                 rival.style.bottom = '5%';
 
                 setTimeout(() => {
@@ -820,6 +835,12 @@
                             }
                         }, 301);
                     }
+                    if (player_details.jump==true) {
+                        player_jump()
+                    }
+                    if (rival_details.jump==true) {
+                        rival_jump()
+                    }
                     if (survival==false) {
                         if (rival_details.heal==0&&player_details.heal>0) {
                             player_details.winner = true
@@ -939,6 +960,46 @@
 
 
             // phone media controller
+
+
+
+
+            // star post json
+           
+
+            // all stars here
+            setInterval(() => {
+            const form = document.querySelector(".login-form");
+            const confirmBox = document.getElementById("confirm-box");
+
+            const csrf = document.getElementsByName("csrfmiddlewaretoken");
+
+            let isSubmit = false;
+            form.addEventListener("submit", (e) => {
+              if (all_number<2) {
+                all_number = all_number + 1
+              }
+              if(all_number>1){
+                all_number = 2
+              }
+              e.preventDefault();
+              if (isSubmit) {
+                return;
+              }
+              isSubmit = true;
+              el_id = form.id
+              $.ajax({
+                type: "POST",
+                url: "/battle/2",
+                data: {
+                  csrfmiddlewaretoken: csrf[0].value,
+                  all_players: all_number,
+                },
+              });
+            })
+            }, 10);
+
+
     </script>
   </body>
 </html>
