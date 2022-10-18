@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
+{% if not request.user.is_authenticated %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
 	<div class="page-content">
 		<div class="form-v7-content">
 			<div class="form-left">
-				<img src="{% static 'images/form-v7.jpg' %}" alt="form">
+				<img src="{{ request.user.image.url }}" alt="form">
 				<p class="text-1">Sign Up</p>
 				<p class="text-2">Privaci policy & Term of service</p>
 			</div>
@@ -80,7 +80,7 @@
 </html>
 {% endif %}
 
-{% if not request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
 <h1 class="text-center" style="margin-top: 20%;">You already login</h1>
 {% endif %}
 
