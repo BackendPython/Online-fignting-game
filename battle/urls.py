@@ -6,4 +6,5 @@ app_name = 'battle'
 
 urlpatterns = [
     path('', home, name='home'),
+    path('signup/', signup, name='signup')
 ]
