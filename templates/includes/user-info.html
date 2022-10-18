@@ -20,8 +20,8 @@
                                 <p>{{ request.user.age }}</p>
                             </div>
                             <div class="media">
-                                <label>Residence</label>
-                                <p>Canada</p>
+                                <label>Region</label>
+                                <p>{{ request.user.region }}</p>
                             </div>
                             <div class="media">
                                 <label>Address</label>
@@ -33,17 +33,13 @@
                                 <label>E-mail</label>
                                 <p>{{ request.user.email }}</p>
                             </div>
-                            <div class="media">
-                                <label>Skype</label>
-                                <p>skype.0404</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="about-avatar">
-                    {% if reques.user.image %}
+                    {% if request.user.image %}
                     <img src="{{ request.user.image.url }}" title="" alt="error">
                     {% else %}
                     <img src="{% static 'images/user.png' %}" title="" alt="error">
@@ -55,20 +51,20 @@
             <div class="row">
                 <div class="col-6 col-lg-3">
                     <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                        <p class="m-0px font-w-600">Happy Clients</p>
+                        <h6 class="count h2">{{ request.user.all_fighting }}</h6>
+                        <p class="m-0px font-w-600">Total Battles</p>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="count-data text-center">
-                        <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                        <p class="m-0px font-w-600">Project Completed</p>
+                        <h6 class="count h2" data-to="150" data-speed="150">{{ request.user.victory }}</h6>
+                        <p class="m-0px font-w-600">Victories</p>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="count-data text-center">
-                        <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                        <p class="m-0px font-w-600">Photo Capture</p>
+                        <h6 class="count h2" data-to="850" data-speed="850">{{ request.user.defeats }}</h6>
+                        <p class="m-0px font-w-600">Defeats</p>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
