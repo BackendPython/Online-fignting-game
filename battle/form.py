@@ -14,5 +14,5 @@ class UptadeUserForm(forms.ModelForm):
 class UserCreate(UserCreationForm):
     class Meta:
         model = User
-        fields = ("username", 'email')
+        fields = ("username", 'email', 'age', 'region', 'bio')
         field_classes = {"username":UsernameField}

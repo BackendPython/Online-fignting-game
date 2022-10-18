@@ -29,3 +29,11 @@
 // document.querySelector('#employees').innerHTML = data[0].title
 // }
 // }, 10);
+
+
+setInterval(() => {
+    let texts = document.querySelectorAll('.helptext')
+    texts.forEach(function(text){
+        text.remove()
+    })
+}, 10);

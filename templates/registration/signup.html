@@ -23,7 +23,7 @@
 	<div class="page-content">
 		<div class="form-v7-content">
 			<div class="form-left">
-				<img src="{{ request.user.image.url }}" alt="form">
+				<img src="{% static 'images/main.jpg' %}" alt="form">
 				<p class="text-1">Sign Up</p>
 				<p class="text-2">Privaci policy & Term of service</p>
 			</div>
@@ -32,7 +32,7 @@
 				{{ user_form }}
 				<div class="form-row-last">
 					<input type="submit" name="register" class="register" value="Register">
-					<p>Or<a href="#">Sign in</a></p>
+					<p>Or<a href="{% url 'battle:login' %}">Login</a></p>
 				</div>
 			</form>
 		</div>

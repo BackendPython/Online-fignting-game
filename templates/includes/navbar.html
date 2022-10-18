@@ -13,6 +13,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'battle:signup' %}">Sign Up</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'battle:login' %}">Login</a>
+          </li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'battle:logout' %}">Logout</a>
+          </li>
           {% endif %}
         </ul>
         <form class="d-flex">
