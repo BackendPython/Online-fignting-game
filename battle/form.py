@@ -8,10 +8,11 @@ User = get_user_model()
 class UptadeUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email',]
+        fields = ['username', 'email',]
         
         
-class Registration(UserCreationForm):
+class UserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email", "password1", "password2",]
+        fields = ("username",)
+        field_classes = {"username":UsernameField}

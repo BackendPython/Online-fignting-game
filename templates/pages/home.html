@@ -4,6 +4,14 @@
 
 {% block content %}
 
+<!-- user profile -->
+{% if request.user.is_authenticated %}
 {% include 'includes/user-info.html' %}
+{% endif %}
+
+<!-- user not profile -->
+{% if not request.user.is_authenticated %}
+<h1 class="text-center" style="margin-top: 20%;">Please Register our site</h1>
+{% endif %}
 
 {% endblock content %}
