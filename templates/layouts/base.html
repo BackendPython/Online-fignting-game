@@ -12,7 +12,6 @@
     
     <div class="main_box">
         {% include 'includes/navbar.html' %}
-        <h1 class="bal">sd</h1>
 
         {% block content %}
 
@@ -25,7 +24,7 @@
         setInterval(() => {
     // api url
 const api_url =
-"https://fighting-online.herokuapp.com/battle-2"; 
+"http://127.0.0.1:8000/battle-2";
 
 // Defining async function
 async function getapi(url) {
@@ -50,8 +49,7 @@ document.getElementById('loading').style.display = 'none';
 }
 // Function to define innerHTML for HTML table
 function show(data) {
-    console.log(data);
-    document.querySelector('.bal').innerHTML = data
+    
 }
 }, 10);
     </script>
