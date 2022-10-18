@@ -8,3 +8,5 @@ class CustomeUser(AbstractUser):
     bio = models.CharField(default="I'm best fighter in the world", max_length=200)
 
 
+
+
