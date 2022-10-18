@@ -9,9 +9,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'battle:home' %}">Home</a>
           </li>
+          {% if not request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'battle:signup' %}">Sign Up</a>
           </li>
+          {% endif %}
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

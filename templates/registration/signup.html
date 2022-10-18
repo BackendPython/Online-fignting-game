@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if request.user.is_authenticated %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,25 +27,9 @@
 				<p class="text-1">Sign Up</p>
 				<p class="text-2">Privaci policy & Term of service</p>
 			</div>
-			<form class="form-detail" action="#" method="post" id="myform">
+			<form class="form-detail" method="post">
 				{% csrf_token %}
 				{{ user_form }}
-				<div class="form-row">
-					<label for="username">USERNAME</label>
-					<input type="text" name="username" id="username" class="input-text">
-				</div>
-				<div class="form-row">
-					<label for="your_email">E-MAIL</label>
-					<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
-				</div>
-				<div class="form-row">
-					<label for="password">PASSWORD</label>
-					<input type="password" name="password" id="password" class="input-text" required>
-				</div>
-				<div class="form-row">
-					<label for="comfirm_password">CONFIRM PASSWORD</label>
-					<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
-				</div>
 				<div class="form-row-last">
 					<input type="submit" name="register" class="register" value="Register">
 					<p>Or<a href="#">Sign in</a></p>
@@ -93,5 +78,10 @@
 	</script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
+{% endif %}
+
+{% if not request.user.is_authenticated %}
+<h1 class="text-center" style="margin-top: 20%;">You already login</h1>
+{% endif %}
 
 {% endblock %}
