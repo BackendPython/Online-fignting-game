@@ -5,4 +5,4 @@ from battle.models import *
 class BattleApi(serializers.ModelSerializer):
     class Meta:
         model = Battle
-        fields = ['__all__']
+        fields = '__all__'
