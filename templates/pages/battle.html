@@ -1,0 +1,495 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{% static 'images/pixel war.jpg' %}">
+    <link rel="stylesheet" href="{% static 'css/battle.css' %}">
+    <title>JS work</title>
+</head>
+<body>
+
+    
+    
+    <!-- full site -->
+     <div class="full" onclick="openFull()">
+
+        <!-- rotation phone -->
+            <img src="{% static 'images/icons/roate-icon.png' %}" class="rotate" alt="error" >
+        <!-- end rotation -->
+
+        <!-- select menu -->
+            <div class="select">
+                <button class="computer" type="submit">
+                <i class="fa-solid fa-robot"></i> Botga qarshi 
+                </button>
+                <button class="friend" type="submit">
+                <i class="fa-solid fa-user-group"></i> Do'stga qarshi
+                </button>
+                <button class="survival" type="submit">
+                <i class="fa-solid fa-skull"></i> Survival war
+                </button>
+            </div>
+        <!-- end select menu -->
+
+        <!-- winner page -->
+            <div class="winner-page">
+                <div class="winner-image"></div>
+                <h1>Congurations you win!</h1>
+                <button class="reload-game" onclick="reload_game()">Play again</button>
+            </div>
+        <!-- end winner page -->
+
+        <!----------------------------------------------- battle time html ----------------------------------------------->
+        <div class="heals">
+            <!-- player -->
+            <div class="player-1">
+                <h1 class="player-text">
+                    <i class="fa-solid fa-heart" style="color: red;"></i>
+                    <span class="player-1-heal-text">100</span>
+                </h1>
+                <div class="player-1-heal-box">
+                    <div class="player-1-heal"></div>
+                </div>
+            </div>
+            <!-- time or kills -->
+            <div class="kills">0</div>
+            <!-- rival -->
+            <div class="rival-1">
+                <div class="rival-1-heal-box">
+                    <div class="rival-1-heal"></div>
+                </div>
+                <h1 class="rival-text">
+                    <span class="rival-1-heal-text">100</span>
+                    <i class="fa-solid fa-heart" style="color: red;"></i>
+                </h1>
+            </div>
+        </div>
+        <div class="text" style="color: wheat; font-size: 2rem;"></div>
+        <div class="character"></div>
+        <div class="fireball fireball-character"></div>
+        <div class="rival"></div>
+        <div class="phone">
+            
+        </div>
+    </div>
+    <!-- end battle time html -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Carter+One');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: royalblue;
+}
+.full{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    background-size: cover;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: royalblue;
+    background-image: url('{% static "images/select-background.png" %}');
+}
+.character{
+    left: 2%;
+    width: 10%;
+    height: 20%;
+    bottom: -0.5%;
+    display: none;
+    position: absolute;
+    transition: 1s ease;
+    background-size: 100%;
+    /* border: 1px solid black; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("{% static 'images/idle/idle-1.png' %}");
+}
+.heals{
+  top: 0px;
+  width: 100%;
+  height: 10%;
+  display: none;
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+}
+.player-1{
+  left: 3%;
+  width: 45%;
+  height: 80%;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  padding-right: 20px;
+  transform: skewX(40deg);
+  background-color: #2c3e50;
+  justify-content: space-between;
+}
+.player-text{
+  width: 15%;
+  display: flex;
+  color: green;
+  font-size: 40px;
+  position: absolute;
+  align-items: center;
+  transform: skew(-40deg);
+  justify-content: space-evenly;
+}
+.player-1-heal-box{
+  right: 2.5%;
+  width: 80%;
+  height: 70%;
+  position: absolute;
+  background-color: red;
+}
+.player-1-heal{
+  width: 100%;
+  height: 100%;
+  background-color: green;
+}
+.fireball{
+  width: 15%;
+  height: 7%;   
+  position: absolute;
+  background-image: url('{% static "images/icons/fireball.png" %}');
+}
+
+.rival-1{
+  width: 45%;
+  height: 80%;
+  right: 3%;
+  display: flex;
+  padding-left: 20px;
+  position: absolute;
+  align-items: center;
+  transform: skewX(-40deg);
+  background-color: #2c3e50;
+  justify-content: space-between;
+}
+.rival-text{
+  right: 0%;
+  width: 15%;
+  display: flex;
+  color: green;
+  font-size: 40px;
+  position: absolute;
+  align-items: center;
+  transform: skew(40deg);
+  justify-content: space-evenly;
+}
+.rival-1-heal-box{
+  left: 2.5%;
+  width: 80%;
+  height: 70%;
+  position: absolute;
+  background-color: red;
+  transform: rotateY(180deg);
+}
+.rival-1-heal{
+  width: 100%;
+  height: 100%;
+  background-color: green;
+}
+
+.rival{
+  right: 2%;
+  width: 9%;
+  height: 18%;
+  bottom: 1.2%;
+  display: none;
+  transition: 1s;
+  position: absolute;
+  transition: 1s ease;
+  background-size: 100%;
+  /* border: 1px solid black; */
+  transform: rotateY(180deg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('{% static "images/rival/idle/idle-1.png" %}');
+}
+
+.kills{
+  top: 0%;
+  left: 47%;
+  width: 6%;
+  height: 80%;
+  z-index: 10;
+  display: flex;
+  color: wheat;
+  font-size: 50px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+/* winner page  */
+
+.winner-page{
+  width: 40%;
+  height: 30%;
+  display: none;
+  margin-top: -10%;
+  color: chocolate;
+  position: absolute;
+  text-align: center;
+  flex-direction: column;
+}
+
+.winner-page .winner-image{
+  top: 0%;
+  width: 40%;
+  height: 100%;
+  margin-left: 35%;
+  background-size: cover;
+  animation: idle 1s infinite;
+}
+
+.winner-page .reload-game{
+  margin-top: 2%;
+  padding: 10px 15px;
+  background-color: green;
+}
+
+/* rotate style */
+
+.rotate{
+  height: 30%;
+  display: none;
+  position: absolute;
+  animation: rotate 1s ease infinite;
+}
+
+/* characater animation */
+@keyframes idle {
+   25%{
+     background-image: url('{% static "images/idle/idle-1.png" %}');
+   }
+   50%{
+    background-image: url('{% static "images/idle/idle-2.png" %}');
+   }
+   75%{
+    background-image: url('{% static "images/idle/idle-3.png" %}');
+   }
+   100%{
+    background-image: url('{% static "images/idle/idle-4.png" %}');
+   }
+}
+
+@keyframes walk {
+  0%{
+    background-image: url('{% static "images/walk/walk-1.png" %}');
+  }
+  20%{
+    background-image: url('{% static "images/walk/walk-2.png" %}');
+  }
+  40%{
+    background-image: url('{% static "images/walk/walk-3.png" %}');
+  }
+  60%{
+    background-image: url('{% static "images/walk/walk-4.png" %}');
+  }
+  80%{
+    background-image: url('{% static "images/walk/walk-5.png" %}');
+  }
+  100%{
+    background-image: url('{% static "images/walk/walk-6.png" %}');
+  }
+}
+
+@keyframes attack {
+  25%{
+    background-image: url('{% static "images/attack/attack-1.png" %}');
+  }
+  50%{
+    background-image: url('{% static "images/attack/attack-2.png" %}');
+  }
+  75%{
+    background-image: url('{% static "images/attack/attack-3.png" %}');
+  }
+  100%{
+    background-image: url('{% static "images/attack/attack-4.png" %}');
+  }
+}
+
+/* rival animations */
+@keyframes idle2 {
+  25%{
+    background-image: url('{% static "images/rival/idle/idle-1.png" %}');
+  }
+  50%{
+   background-image: url('{% static "images/rival/idle/idle-2.png" %}');
+  }
+  75%{
+   background-image: url('{% static "images/rival/idle/idle-3.png" %}');
+  }
+  100%{
+   background-image: url('{% static "images/rival/idle/idle-4.png" %}');
+  }
+}
+
+@keyframes walk2 {
+  0%{
+    background-image: url('{% static "images/rival/walk/walk-1.png" %}');
+  }
+  20%{
+    background-image: url('{% static "images/rival/walk/walk-2.png" %}');
+  }
+  40%{
+    background-image: url('{% static "images/rival/walk/walk-3.png" %}');
+  }
+  60%{
+    background-image: url('{% static "images/rival/walk/walk-4.png" %}');
+  }
+  80%{
+    background-image: url('{% static "images/rival/walk/walk-5.png" %}');
+  }
+  100%{
+    background-image: url('{% static "images/rival/walk/walk-6.png" %}');
+  }
+}
+
+@keyframes attack2 {
+  25%{
+    background-image: url('{% static "images/rival/attack/attack-1.png" %}');
+  }
+  50%{
+    background-image: url('{% static "images/rival/attack/attack-2.png" %}');
+  }
+  75%{
+    background-image: url('{% static "images/rival/attack/attack-3.png" %}');
+  }
+  100%{
+    background-image: url('{% static "images/rival/attack/attack-4.png" %}');
+  }
+}
+
+/* rotate animation */
+
+@keyframes rotate {
+  0%{
+      transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(100deg);
+  }
+}
+
+/* select page */
+
+.select{
+	display: grid;
+}
+.select .computer{
+  font-size: 30px;
+  margin-top: 0px;
+  margin-left: 50px;
+	padding: 10px 15px;
+	border-radius: 20px;
+	background-color: aqua;
+	border: 2px dashed blue;
+	box-shadow: -5px 10px black;
+}
+.select .computer:active{
+  box-shadow: none;
+  transform: translateY(10px);
+}
+.select .friend{
+	font-size: 30px;
+  margin-left: 50px;
+  margin-top: 60px;
+	padding: 10px 15px;
+	border-radius: 20px;
+	background-color: aqua;
+	border: 2px dashed  blue;
+	box-shadow: -5px 10px black;
+}
+.select .friend:active{
+	box-shadow: none;
+	transform: translateY(10px);
+}
+.select .survival{
+  color: white;
+	font-size: 30px;
+  margin-top: 60px;
+  margin-left: 50px;
+	padding: 10px 15px;
+	border-radius: 20px;
+	background-color: red;
+	border: 2px dashed  blue;
+	box-shadow: -5px 10px black;
+}
+.select .survival:active{
+	box-shadow: none;
+	transform: translateY(10px);
+}
+
+/* health media style  */
+
+@media screen and (max-width: 1625px) {
+  .player-text, .rival-text{
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1165px) {
+  .player-text, .rival-text{
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 865px) {
+  .player-text, .rival-text{
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .player-text, .rival-text{
+    font-size: 12px;
+  }
+  .player-text{
+    left: 2%;
+  }
+  .player-1-heal-box, .rival-1-heal-box{
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .player-text, .rival-text{
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .player-text, .rival-text{
+    font-size: 7px;
+  }
+}
+
+
+
+
+    </style>
+
+
+    <!------------------------------------------------ script ------------------------------------------------>
+    <script src="{% static 'js/battle.js' %}"></script>
+    <noscript><style>.full{display: none;}</style><h1>Please allow JavaScript for this site</h1></noscript>
+</body>
+</html>
