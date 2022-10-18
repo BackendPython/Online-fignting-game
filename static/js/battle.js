@@ -1,3 +1,4 @@
+{% load static %}
 let player_heal_text = document.querySelector('.player-1-heal-text')
 let rival_heal_text = document.querySelector('.rival-1-heal-text')
 let player_heal_box = document.querySelector('.player-1-heal')
@@ -77,7 +78,7 @@ function reload_game() {
     character.style.display = 'none';
     selectPage.style.display = 'grid';
     winner_page.style.display = 'none';
-    fullBox.style.backgroundImage = 'url("/images/select-background.png")';
+    fullBox.style.backgroundImage = 'url("{% static 'images/select-background.png' %}")';
 }
 
 function battleTime(){
@@ -87,7 +88,7 @@ function battleTime(){
     character.style.display = 'flex';
     selectPage.style.display = 'none';
     rotateImage.style.display = 'none';
-    fullBox.style.backgroundImage = 'url("/images/background.png")';
+    fullBox.style.backgroundImage = 'url("{% static 'images/background.png' %}")';
 }
 
 function startTime(){
@@ -97,7 +98,7 @@ function startTime(){
     character.style.display = 'none';
     selectPage.style.display = 'grid';
     rotateImage.style.display = 'none';
-    fullBox.style.backgroundImage = 'url("/images/select-background.png")';
+    fullBox.style.backgroundImage = 'url("{% static 'images/select-background.png' %}")';
 }
 
 function rotateTime(){

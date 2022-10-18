@@ -19,3 +19,7 @@ def signup(request):
     }
     
     return render(request, 'registration/signup.html', context)
+
+
+def battle(request):
+    return render(request, 'pages/battle.html')
