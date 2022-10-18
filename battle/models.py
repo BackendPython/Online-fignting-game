@@ -11,5 +11,21 @@ class CustomeUser(AbstractUser):
     bio = models.CharField(default="I'm best fighter in the world", max_length=200)
 
 
-
+class Battle(models.Model):
+    all_players = models.IntegerField(default=0)
+    first_player = models.CharField(max_length=50)
+    second_player = models.CharField(max_length=50)
+    player_heal = models.IntegerField(default=100)
+    player_attack = models.IntegerField(default=10)
+    player_jump = models.BooleanField(default=False)
+    player_winner = models.BooleanField(default=False)
+    player_blow_turn = models.BooleanField(default=False)
+    rival_heal = models.IntegerField(default=100)
+    rival_attack = models.IntegerField(default=10)
+    rival_jump = models.BooleanField(default=False)
+    rival_winner = models.BooleanField(default=False)
+    rival_blow_turn = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.first_player} vs {self.second_player}"
 

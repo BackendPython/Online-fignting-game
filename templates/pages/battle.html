@@ -1,495 +1,910 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="{% static 'images/pixel war.jpg' %}">
-    <link rel="stylesheet" href="{% static 'css/battle.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" href="{% static 'images/pixel war.jpg' %}" />
+    <link rel="stylesheet" href="{% static 'css/battle.css' %}" />
     <title>JS work</title>
-</head>
-<body>
-
-    
-    
+  </head>
+  <body>
     <!-- full site -->
-     <div class="full" onclick="openFull()">
+    <div class="full" onclick="openFull()">
+      <!-- rotation phone -->
+      <img
+        src="{% static 'images/icons/roate-icon.png' %}"
+        class="rotate"
+        alt="error"
+      />
+      <!-- end rotation -->
 
-        <!-- rotation phone -->
-            <img src="{% static 'images/icons/roate-icon.png' %}" class="rotate" alt="error" >
-        <!-- end rotation -->
+      <!-- select menu -->
+      <div class="select">
+        <button class="computer" type="submit">
+          <i class="fa-solid fa-robot"></i> Botga qarshi
+        </button>
+        <button class="friend" type="submit">
+          <i class="fa-solid fa-user-group"></i> Do'stga qarshi
+        </button>
+        <button class="survival" type="submit">
+          <i class="fa-solid fa-skull"></i> Survival war
+        </button>
+      </div>
+      <!-- end select menu -->
 
-        <!-- select menu -->
-            <div class="select">
-                <button class="computer" type="submit">
-                <i class="fa-solid fa-robot"></i> Botga qarshi 
-                </button>
-                <button class="friend" type="submit">
-                <i class="fa-solid fa-user-group"></i> Do'stga qarshi
-                </button>
-                <button class="survival" type="submit">
-                <i class="fa-solid fa-skull"></i> Survival war
-                </button>
-            </div>
-        <!-- end select menu -->
+      <!-- winner page -->
+      <div class="winner-page">
+        <div class="winner-image"></div>
+        <h1>Congurations you win!</h1>
+        <button class="reload-game" onclick="reload_game()">Play again</button>
+      </div>
+      <!-- end winner page -->
 
-        <!-- winner page -->
-            <div class="winner-page">
-                <div class="winner-image"></div>
-                <h1>Congurations you win!</h1>
-                <button class="reload-game" onclick="reload_game()">Play again</button>
-            </div>
-        <!-- end winner page -->
-
-        <!----------------------------------------------- battle time html ----------------------------------------------->
-        <div class="heals">
-            <!-- player -->
-            <div class="player-1">
-                <h1 class="player-text">
-                    <i class="fa-solid fa-heart" style="color: red;"></i>
-                    <span class="player-1-heal-text">100</span>
-                </h1>
-                <div class="player-1-heal-box">
-                    <div class="player-1-heal"></div>
-                </div>
-            </div>
-            <!-- time or kills -->
-            <div class="kills">0</div>
-            <!-- rival -->
-            <div class="rival-1">
-                <div class="rival-1-heal-box">
-                    <div class="rival-1-heal"></div>
-                </div>
-                <h1 class="rival-text">
-                    <span class="rival-1-heal-text">100</span>
-                    <i class="fa-solid fa-heart" style="color: red;"></i>
-                </h1>
-            </div>
+      <!----------------------------------------------- battle time html ----------------------------------------------->
+      <div class="heals">
+        <!-- player -->
+        <div class="player-1">
+          <h1 class="player-text">
+            <i class="fa-solid fa-heart" style="color: red"></i>
+            <span class="player-1-heal-text">100</span>
+          </h1>
+          <div class="player-1-heal-box">
+            <div class="player-1-heal"></div>
+          </div>
         </div>
-        <div class="text" style="color: wheat; font-size: 2rem;"></div>
-        <div class="character"></div>
-        <div class="fireball fireball-character"></div>
-        <div class="rival"></div>
-        <div class="phone">
-            
+        <!-- time or kills -->
+        <div class="kills">0</div>
+        <!-- rival -->
+        <div class="rival-1">
+          <div class="rival-1-heal-box">
+            <div class="rival-1-heal"></div>
+          </div>
+          <h1 class="rival-text">
+            <span class="rival-1-heal-text">100</span>
+            <i class="fa-solid fa-heart" style="color: red"></i>
+          </h1>
         </div>
+      </div>
+      <div class="text" style="color: wheat; font-size: 2rem"></div>
+      <div class="character"></div>
+      <div class="fireball fireball-character"></div>
+      <div class="rival"></div>
+      <div class="phone"></div>
     </div>
     <!-- end battle time html -->
 
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Carter+One');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    display: flex;
-    overflow: hidden;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: royalblue;
-}
-.full{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    background-size: cover;
-    justify-content: center;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: royalblue;
-    background-image: url('{% static "images/select-background.png" %}');
-}
-.character{
-    left: 2%;
-    width: 10%;
-    height: 20%;
-    bottom: -0.5%;
-    display: none;
-    position: absolute;
-    transition: 1s ease;
-    background-size: 100%;
-    /* border: 1px solid black; */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("{% static 'images/idle/idle-1.png' %}");
-}
-.heals{
-  top: 0px;
-  width: 100%;
-  height: 10%;
-  display: none;
-  position: absolute;
-  align-items: center;
-  justify-content: space-between;
-}
-.player-1{
-  left: 3%;
-  width: 45%;
-  height: 80%;
-  display: flex;
-  position: absolute;
-  align-items: center;
-  padding-right: 20px;
-  transform: skewX(40deg);
-  background-color: #2c3e50;
-  justify-content: space-between;
-}
-.player-text{
-  width: 15%;
-  display: flex;
-  color: green;
-  font-size: 40px;
-  position: absolute;
-  align-items: center;
-  transform: skew(-40deg);
-  justify-content: space-evenly;
-}
-.player-1-heal-box{
-  right: 2.5%;
-  width: 80%;
-  height: 70%;
-  position: absolute;
-  background-color: red;
-}
-.player-1-heal{
-  width: 100%;
-  height: 100%;
-  background-color: green;
-}
-.fireball{
-  width: 15%;
-  height: 7%;   
-  position: absolute;
-  background-image: url('{% static "images/icons/fireball.png" %}');
-}
+      @import url("https://fonts.googleapis.com/css?family=Carter+One");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        overflow: hidden;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        background-color: royalblue;
+      }
+      .full {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        overflow: hidden;
+        align-items: center;
+        background-size: cover;
+        justify-content: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: royalblue;
+        background-image: url('{% static "images/select-background.png" %}');
+      }
+      .character {
+        left: 2%;
+        width: 10%;
+        height: 20%;
+        bottom: -0.5%;
+        display: none;
+        position: absolute;
+        transition: 1s ease;
+        background-size: 100%;
+        /* border: 1px solid black; */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("{% static 'images/idle/idle-1.png' %}");
+      }
+      .heals {
+        top: 0px;
+        width: 100%;
+        height: 10%;
+        display: none;
+        position: absolute;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .player-1 {
+        left: 3%;
+        width: 45%;
+        height: 80%;
+        display: flex;
+        position: absolute;
+        align-items: center;
+        padding-right: 20px;
+        transform: skewX(40deg);
+        background-color: #2c3e50;
+        justify-content: space-between;
+      }
+      .player-text {
+        width: 15%;
+        display: flex;
+        color: green;
+        font-size: 40px;
+        position: absolute;
+        align-items: center;
+        transform: skew(-40deg);
+        justify-content: space-evenly;
+      }
+      .player-1-heal-box {
+        right: 2.5%;
+        width: 80%;
+        height: 70%;
+        position: absolute;
+        background-color: red;
+      }
+      .player-1-heal {
+        width: 100%;
+        height: 100%;
+        background-color: green;
+      }
+      .fireball {
+        width: 15%;
+        height: 7%;
+        position: absolute;
+        background-image: url('{% static "images/icons/fireball.png" %}');
+      }
 
-.rival-1{
-  width: 45%;
-  height: 80%;
-  right: 3%;
-  display: flex;
-  padding-left: 20px;
-  position: absolute;
-  align-items: center;
-  transform: skewX(-40deg);
-  background-color: #2c3e50;
-  justify-content: space-between;
-}
-.rival-text{
-  right: 0%;
-  width: 15%;
-  display: flex;
-  color: green;
-  font-size: 40px;
-  position: absolute;
-  align-items: center;
-  transform: skew(40deg);
-  justify-content: space-evenly;
-}
-.rival-1-heal-box{
-  left: 2.5%;
-  width: 80%;
-  height: 70%;
-  position: absolute;
-  background-color: red;
-  transform: rotateY(180deg);
-}
-.rival-1-heal{
-  width: 100%;
-  height: 100%;
-  background-color: green;
-}
+      .rival-1 {
+        width: 45%;
+        height: 80%;
+        right: 3%;
+        display: flex;
+        padding-left: 20px;
+        position: absolute;
+        align-items: center;
+        transform: skewX(-40deg);
+        background-color: #2c3e50;
+        justify-content: space-between;
+      }
+      .rival-text {
+        right: 0%;
+        width: 15%;
+        display: flex;
+        color: green;
+        font-size: 40px;
+        position: absolute;
+        align-items: center;
+        transform: skew(40deg);
+        justify-content: space-evenly;
+      }
+      .rival-1-heal-box {
+        left: 2.5%;
+        width: 80%;
+        height: 70%;
+        position: absolute;
+        background-color: red;
+        transform: rotateY(180deg);
+      }
+      .rival-1-heal {
+        width: 100%;
+        height: 100%;
+        background-color: green;
+      }
 
-.rival{
-  right: 2%;
-  width: 9%;
-  height: 18%;
-  bottom: 1.2%;
-  display: none;
-  transition: 1s;
-  position: absolute;
-  transition: 1s ease;
-  background-size: 100%;
-  /* border: 1px solid black; */
-  transform: rotateY(180deg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url('{% static "images/rival/idle/idle-1.png" %}');
-}
+      .rival {
+        right: 2%;
+        width: 9%;
+        height: 18%;
+        bottom: 1.2%;
+        display: none;
+        transition: 1s;
+        position: absolute;
+        transition: 1s ease;
+        background-size: 100%;
+        /* border: 1px solid black; */
+        transform: rotateY(180deg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('{% static "images/rival/idle/idle-1.png" %}');
+      }
 
-.kills{
-  top: 0%;
-  left: 47%;
-  width: 6%;
-  height: 80%;
-  z-index: 10;
-  display: flex;
-  color: wheat;
-  font-size: 50px;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-}
-/* winner page  */
+      .kills {
+        top: 0%;
+        left: 47%;
+        width: 6%;
+        height: 80%;
+        z-index: 10;
+        display: flex;
+        color: wheat;
+        font-size: 50px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+      }
+      /* winner page  */
 
-.winner-page{
-  width: 40%;
-  height: 30%;
-  display: none;
-  margin-top: -10%;
-  color: chocolate;
-  position: absolute;
-  text-align: center;
-  flex-direction: column;
-}
+      .winner-page {
+        width: 40%;
+        height: 30%;
+        display: none;
+        margin-top: -10%;
+        color: chocolate;
+        position: absolute;
+        text-align: center;
+        flex-direction: column;
+      }
 
-.winner-page .winner-image{
-  top: 0%;
-  width: 40%;
-  height: 100%;
-  margin-left: 35%;
-  background-size: cover;
-  animation: idle 1s infinite;
-}
+      .winner-page .winner-image {
+        top: 0%;
+        width: 40%;
+        height: 100%;
+        margin-left: 35%;
+        background-size: cover;
+        animation: idle 1s infinite;
+      }
 
-.winner-page .reload-game{
-  margin-top: 2%;
-  padding: 10px 15px;
-  background-color: green;
-}
+      .winner-page .reload-game {
+        margin-top: 2%;
+        padding: 10px 15px;
+        background-color: green;
+      }
 
-/* rotate style */
+      /* rotate style */
 
-.rotate{
-  height: 30%;
-  display: none;
-  position: absolute;
-  animation: rotate 1s ease infinite;
-}
+      .rotate {
+        height: 30%;
+        display: none;
+        position: absolute;
+        animation: rotate 1s ease infinite;
+      }
 
-/* characater animation */
-@keyframes idle {
-   25%{
-     background-image: url('{% static "images/idle/idle-1.png" %}');
-   }
-   50%{
-    background-image: url('{% static "images/idle/idle-2.png" %}');
-   }
-   75%{
-    background-image: url('{% static "images/idle/idle-3.png" %}');
-   }
-   100%{
-    background-image: url('{% static "images/idle/idle-4.png" %}');
-   }
-}
+      /* characater animation */
+      @keyframes idle {
+        25% {
+          background-image: url('{% static "images/idle/idle-1.png" %}');
+        }
+        50% {
+          background-image: url('{% static "images/idle/idle-2.png" %}');
+        }
+        75% {
+          background-image: url('{% static "images/idle/idle-3.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/idle/idle-4.png" %}');
+        }
+      }
 
-@keyframes walk {
-  0%{
-    background-image: url('{% static "images/walk/walk-1.png" %}');
-  }
-  20%{
-    background-image: url('{% static "images/walk/walk-2.png" %}');
-  }
-  40%{
-    background-image: url('{% static "images/walk/walk-3.png" %}');
-  }
-  60%{
-    background-image: url('{% static "images/walk/walk-4.png" %}');
-  }
-  80%{
-    background-image: url('{% static "images/walk/walk-5.png" %}');
-  }
-  100%{
-    background-image: url('{% static "images/walk/walk-6.png" %}');
-  }
-}
+      @keyframes walk {
+        0% {
+          background-image: url('{% static "images/walk/walk-1.png" %}');
+        }
+        20% {
+          background-image: url('{% static "images/walk/walk-2.png" %}');
+        }
+        40% {
+          background-image: url('{% static "images/walk/walk-3.png" %}');
+        }
+        60% {
+          background-image: url('{% static "images/walk/walk-4.png" %}');
+        }
+        80% {
+          background-image: url('{% static "images/walk/walk-5.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/walk/walk-6.png" %}');
+        }
+      }
 
-@keyframes attack {
-  25%{
-    background-image: url('{% static "images/attack/attack-1.png" %}');
-  }
-  50%{
-    background-image: url('{% static "images/attack/attack-2.png" %}');
-  }
-  75%{
-    background-image: url('{% static "images/attack/attack-3.png" %}');
-  }
-  100%{
-    background-image: url('{% static "images/attack/attack-4.png" %}');
-  }
-}
+      @keyframes attack {
+        25% {
+          background-image: url('{% static "images/attack/attack-1.png" %}');
+        }
+        50% {
+          background-image: url('{% static "images/attack/attack-2.png" %}');
+        }
+        75% {
+          background-image: url('{% static "images/attack/attack-3.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/attack/attack-4.png" %}');
+        }
+      }
 
-/* rival animations */
-@keyframes idle2 {
-  25%{
-    background-image: url('{% static "images/rival/idle/idle-1.png" %}');
-  }
-  50%{
-   background-image: url('{% static "images/rival/idle/idle-2.png" %}');
-  }
-  75%{
-   background-image: url('{% static "images/rival/idle/idle-3.png" %}');
-  }
-  100%{
-   background-image: url('{% static "images/rival/idle/idle-4.png" %}');
-  }
-}
+      /* rival animations */
+      @keyframes idle2 {
+        25% {
+          background-image: url('{% static "images/rival/idle/idle-1.png" %}');
+        }
+        50% {
+          background-image: url('{% static "images/rival/idle/idle-2.png" %}');
+        }
+        75% {
+          background-image: url('{% static "images/rival/idle/idle-3.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/rival/idle/idle-4.png" %}');
+        }
+      }
 
-@keyframes walk2 {
-  0%{
-    background-image: url('{% static "images/rival/walk/walk-1.png" %}');
-  }
-  20%{
-    background-image: url('{% static "images/rival/walk/walk-2.png" %}');
-  }
-  40%{
-    background-image: url('{% static "images/rival/walk/walk-3.png" %}');
-  }
-  60%{
-    background-image: url('{% static "images/rival/walk/walk-4.png" %}');
-  }
-  80%{
-    background-image: url('{% static "images/rival/walk/walk-5.png" %}');
-  }
-  100%{
-    background-image: url('{% static "images/rival/walk/walk-6.png" %}');
-  }
-}
+      @keyframes walk2 {
+        0% {
+          background-image: url('{% static "images/rival/walk/walk-1.png" %}');
+        }
+        20% {
+          background-image: url('{% static "images/rival/walk/walk-2.png" %}');
+        }
+        40% {
+          background-image: url('{% static "images/rival/walk/walk-3.png" %}');
+        }
+        60% {
+          background-image: url('{% static "images/rival/walk/walk-4.png" %}');
+        }
+        80% {
+          background-image: url('{% static "images/rival/walk/walk-5.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/rival/walk/walk-6.png" %}');
+        }
+      }
 
-@keyframes attack2 {
-  25%{
-    background-image: url('{% static "images/rival/attack/attack-1.png" %}');
-  }
-  50%{
-    background-image: url('{% static "images/rival/attack/attack-2.png" %}');
-  }
-  75%{
-    background-image: url('{% static "images/rival/attack/attack-3.png" %}');
-  }
-  100%{
-    background-image: url('{% static "images/rival/attack/attack-4.png" %}');
-  }
-}
+      @keyframes attack2 {
+        25% {
+          background-image: url('{% static "images/rival/attack/attack-1.png" %}');
+        }
+        50% {
+          background-image: url('{% static "images/rival/attack/attack-2.png" %}');
+        }
+        75% {
+          background-image: url('{% static "images/rival/attack/attack-3.png" %}');
+        }
+        100% {
+          background-image: url('{% static "images/rival/attack/attack-4.png" %}');
+        }
+      }
 
-/* rotate animation */
+      /* rotate animation */
 
-@keyframes rotate {
-  0%{
-      transform: rotate(0deg);
-  }
-  100%{
-    transform: rotate(100deg);
-  }
-}
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(100deg);
+        }
+      }
 
-/* select page */
+      /* select page */
 
-.select{
-	display: grid;
-}
-.select .computer{
-  font-size: 30px;
-  margin-top: 0px;
-  margin-left: 50px;
-	padding: 10px 15px;
-	border-radius: 20px;
-	background-color: aqua;
-	border: 2px dashed blue;
-	box-shadow: -5px 10px black;
-}
-.select .computer:active{
-  box-shadow: none;
-  transform: translateY(10px);
-}
-.select .friend{
-	font-size: 30px;
-  margin-left: 50px;
-  margin-top: 60px;
-	padding: 10px 15px;
-	border-radius: 20px;
-	background-color: aqua;
-	border: 2px dashed  blue;
-	box-shadow: -5px 10px black;
-}
-.select .friend:active{
-	box-shadow: none;
-	transform: translateY(10px);
-}
-.select .survival{
-  color: white;
-	font-size: 30px;
-  margin-top: 60px;
-  margin-left: 50px;
-	padding: 10px 15px;
-	border-radius: 20px;
-	background-color: red;
-	border: 2px dashed  blue;
-	box-shadow: -5px 10px black;
-}
-.select .survival:active{
-	box-shadow: none;
-	transform: translateY(10px);
-}
+      .select {
+        display: grid;
+      }
+      .select .computer {
+        font-size: 30px;
+        margin-top: 0px;
+        margin-left: 50px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        background-color: aqua;
+        border: 2px dashed blue;
+        box-shadow: -5px 10px black;
+      }
+      .select .computer:active {
+        box-shadow: none;
+        transform: translateY(10px);
+      }
+      .select .friend {
+        font-size: 30px;
+        margin-left: 50px;
+        margin-top: 60px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        background-color: aqua;
+        border: 2px dashed blue;
+        box-shadow: -5px 10px black;
+      }
+      .select .friend:active {
+        box-shadow: none;
+        transform: translateY(10px);
+      }
+      .select .survival {
+        color: white;
+        font-size: 30px;
+        margin-top: 60px;
+        margin-left: 50px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        background-color: red;
+        border: 2px dashed blue;
+        box-shadow: -5px 10px black;
+      }
+      .select .survival:active {
+        box-shadow: none;
+        transform: translateY(10px);
+      }
 
-/* health media style  */
+      /* health media style  */
 
-@media screen and (max-width: 1625px) {
-  .player-text, .rival-text{
-    font-size: 20px;
-  }
-}
+      @media screen and (max-width: 1625px) {
+        .player-text,
+        .rival-text {
+          font-size: 20px;
+        }
+      }
 
-@media screen and (max-width: 1165px) {
-  .player-text, .rival-text{
-    font-size: 20px;
-  }
-}
+      @media screen and (max-width: 1165px) {
+        .player-text,
+        .rival-text {
+          font-size: 20px;
+        }
+      }
 
-@media screen and (max-width: 865px) {
-  .player-text, .rival-text{
-    font-size: 15px;
-  }
-}
+      @media screen and (max-width: 865px) {
+        .player-text,
+        .rival-text {
+          font-size: 15px;
+        }
+      }
 
-@media screen and (max-width: 765px) {
-  .player-text, .rival-text{
-    font-size: 12px;
-  }
-  .player-text{
-    left: 2%;
-  }
-  .player-1-heal-box, .rival-1-heal-box{
-    width: 75%;
-  }
-}
+      @media screen and (max-width: 765px) {
+        .player-text,
+        .rival-text {
+          font-size: 12px;
+        }
+        .player-text {
+          left: 2%;
+        }
+        .player-1-heal-box,
+        .rival-1-heal-box {
+          width: 75%;
+        }
+      }
 
-@media screen and (max-width: 450px) {
-  .player-text, .rival-text{
-    font-size: 8px;
-  }
-}
+      @media screen and (max-width: 450px) {
+        .player-text,
+        .rival-text {
+          font-size: 8px;
+        }
+      }
 
-@media screen and (max-width: 400px) {
-  .player-text, .rival-text{
-    font-size: 7px;
-  }
-}
-
-
-
-
+      @media screen and (max-width: 400px) {
+        .player-text,
+        .rival-text {
+          font-size: 7px;
+        }
+      }
     </style>
-
 
     <!------------------------------------------------ script ------------------------------------------------>
     <script src="{% static 'js/battle.js' %}"></script>
-    <noscript><style>.full{display: none;}</style><h1>Please allow JavaScript for this site</h1></noscript>
-</body>
+    <noscript
+      ><style>
+        .full {
+          display: none;
+        }
+      </style>
+      <h1>Please allow JavaScript for this site</h1></noscript
+    >
+
+    <script>
+            {% load static %}
+      let player_heal_text = document.querySelector('.player-1-heal-text')
+      let rival_heal_text = document.querySelector('.rival-1-heal-text')
+      let player_heal_box = document.querySelector('.player-1-heal')
+      let rival_heal_box = document.querySelector('.rival-1-heal')
+      let reload_button = document.querySelector('.reload-game')
+      let winner_page = document.querySelector('.winner-page')
+      const character = document.querySelector('.character')
+      let computerBtn = document.querySelector('.computer')
+      let fireball = document.querySelectorAll('.fireball')
+      let survivalBtn = document.querySelector('.survival')
+      let rotateImage = document.querySelector('.rotate')
+      let selectPage = document.querySelector('.select')
+      let friendBtn = document.querySelector('.friend')
+      let kills_text = document.querySelector('.kills')
+      let zaxiraText = document.querySelector('.text')
+      const fullBox = document.querySelector('.full')
+      let rival = document.querySelectorAll('.rival')
+      let heals = document.querySelector('.heals')
+      let characterStatus = 'idle';
+      let rivalStatus = 'idle2';
+      let recover_time = false;
+      let selectPlayer = null;
+      let errorRotate = false;
+      let gameStart = false;
+      let survival = false;
+      let media = false;
+
+
+      // fullscreen
+      function openFull(){
+          if (fullBox.requestFullscreen) {
+              fullBox.requestFullscreen();
+            } else if (fullBox.webkitRequestFullscreen) { /* Safari */
+              fullBox.webkitRequestFullscreen();
+            } else if (fullBox.msRequestFullscreen) { /* IE11 */
+              fullBox.msRequestFullscreen();
+            }
+      }
+
+      // details
+      let player_details = {
+          heal: 100,
+          attack: 10,
+          jump: false,
+          winner: false,
+          blow_turn: false,
+      }
+      let rival_details = {
+          heal: 100,
+          attack: 10,
+          jump: false,
+          winner: false,
+          blow_turn: false,
+      }
+
+      // functions
+
+      function remove_fireball() {
+          fireball = document.querySelectorAll('.fireball')
+          fireball.forEach(function(fireball){
+              fireball.remove()
+          })
+      }
+
+      function reload_game() {
+          remove_fireball()
+          gameStart = false;
+          rival_details.heal = 100;
+          player_details.heal = 100;
+          rival[0].style.left = null;
+          rival[0].style.right = '2%';
+          character.style.left = '3%';
+          heals.style.display = 'none';
+          rival_details.winner = false;
+          player_details.winner = false;
+          rival[0].style.display = 'none';
+          character.style.display = 'none';
+          selectPage.style.display = 'grid';
+          winner_page.style.display = 'none';
+          fullBox.style.backgroundImage = 'url("{% static 'images/select-background.png' %}")';
+      }
+
+      function battleTime(){
+          remove_fireball()
+          heals.style.display = 'flex';
+          rival[0].style.display = 'flex';
+          character.style.display = 'flex';
+          selectPage.style.display = 'none';
+          rotateImage.style.display = 'none';
+          fullBox.style.backgroundImage = 'url("{% static 'images/background.png' %}")';
+      }
+
+      function startTime(){
+          remove_fireball()
+          heals.style.display = 'none';
+          rival[0].style.display = 'none';
+          character.style.display = 'none';
+          selectPage.style.display = 'grid';
+          rotateImage.style.display = 'none';
+          fullBox.style.backgroundImage = 'url("{% static 'images/select-background.png' %}")';
+      }
+
+      function rotateTime(){
+          heals.style.display = 'none'
+          rival[0].style.display = 'none'
+          character.style.display = 'none'
+          selectPage.style.display = 'none'
+          rotateImage.style.display = 'flex'
+          winner_page.style.display = 'none'
+          fullBox.style.backgroundImage = 'none'
+      }
+
+      function player_jump() {
+          // let player_bottom = parseInt(character.style.bottom) + 10
+          player_details.jump = true;
+          character.style.bottom = '5%';
+
+          setTimeout(() => {
+              character.style.bottom = '';
+              setTimeout(() => {
+                  player_details.jump = false;
+              }, 600);
+          }, 700);
+      }
+
+      function rival_jump() {
+          rival.forEach(function(rival){
+          rival_details.jump = true;
+          rival.style.bottom = '5%';
+
+          setTimeout(() => {
+              rival.style.bottom = '';
+              setTimeout(() => {
+                  rival_details.jump = false;
+              }, 600);
+          }, 700);
+          })
+      }
+
+      function rival_win(){
+          selectPlayer = null;
+          rival_details.winner = false;
+          player_details.winner = false;
+          winner_page.style.display = 'block';
+          document.querySelector('.winner-image').style.animation = 'idle2 1s infinite';
+      }
+
+      function player_win(){
+          selectPlayer = null;
+          rival_details.winner = false;
+          player_details.winner = false;
+          winner_page.style.display = 'block';
+          document.querySelector('.winner-image').style.animation = 'idle 1s infinite';
+      }
+
+      // select
+      friendBtn.addEventListener('click', function(){
+          gameStart = true
+          selectPlayer = true
+      })
+      computerBtn.addEventListener('click', function(){
+          gameStart = true
+          selectPlayer = false
+      })
+      survivalBtn.addEventListener('click', function(){
+          survival = true;
+          gameStart = true;
+          selectPlayer = false;
+          rival_details.heal = 100;
+          rival_details.attack = 5
+      })
+
+
+      // characterStatus checking
+      let check = setInterval(() => {
+          rival = document.querySelectorAll('.rival')
+
+          let bodyWidth = parseInt(window.getComputedStyle(document.body).getPropertyValue('width'))
+          let bodyHeight = parseInt(window.getComputedStyle(document.body).getPropertyValue('height'))
+
+          if (characterStatus=='idle') {
+              character.style.animation = 'idle 1s ease infinite'
+          }
+          if (characterStatus=='walk') {
+              character.style.animation = 'walk 1s ease infinite'
+              setTimeout(() => {
+                  if (characterStatus=='walk') {
+                      characterStatus = 'idle'
+                  }
+              }, 1001);
+          }
+          if (characterStatus=='attack') {
+              character.style.animation = 'attack 0.3s ease infinite'
+              setTimeout(() => {
+                  if (characterStatus=='attack') {
+                      characterStatus = 'idle'
+                  }
+              }, 301);
+          }
+          if (gameStart==true&&errorRotate==false) {
+              battleTime()
+              player_heal_box.style.width = player_details.heal + '%'
+              rival_heal_box.style.width = rival_details.heal + '%'
+              player_heal_text.innerHTML = player_details.heal
+              rival_heal_text.innerHTML = rival_details.heal
+          }
+          if (bodyWidth<bodyHeight) {
+              errorRotate = true
+              rotateTime()
+          }
+          if(bodyWidth>bodyHeight){
+              errorRotate = false
+              if (gameStart==false) {
+                  startTime()
+              }
+              if (gameStart==true) {
+                  battleTime()
+              }
+          }
+      });
+
+      // character controller keyup
+      window.addEventListener('keyup', function(event){
+          if (gameStart==true&&errorRotate==false&&selectPlayer==true||selectPlayer==false) {
+              let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
+              let characterRight = parseInt(window.getComputedStyle(character).getPropertyValue('right'))
+              switch (event.key) {
+                  case "a":
+                      characterStatus = 'walk'
+                      if (characterLeft>100&&player_details.jump==false) {
+                          character.style.left = characterLeft - 100 + 'px'
+                      }
+                      break;
+                  case "d":
+                      characterStatus = 'walk'
+                      if (characterRight>100&&player_details.jump==false) {
+                          character.style.left = characterLeft + 100 + 'px'
+                      }
+                      break;
+                  case "w":
+                      if (player_details.jump==false) {
+                          player_jump()
+                      }
+                      break;
+                  case " ":
+                      if (characterStatus=='idle') {
+                          characterStatus = 'attack'
+                      }
+                      break;
+                  default:
+                      break;
+              }
+          }
+      })
+
+      // rivalStatus checking
+      let check2 = setInterval(() => {
+          rival.forEach(function(rival){
+              let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
+              let rivalLeft = parseInt(window.getComputedStyle(rival).getPropertyValue('left'))
+              if (rivalStatus=='idle2') {
+                  rival.style.animation = 'idle2 1s infinite'
+              }
+              if (rivalStatus=='walk2') {
+                  rival.style.animation = 'walk2 1s infinite'
+                  setTimeout(() => {
+                      if (rivalStatus=='walk2') {
+                          rivalStatus = 'idle2'
+                      }
+                  }, 1001);
+              }
+              if (rivalStatus=='attack2') {
+                  rival.style.animation = 'attack2 0.3s infinite'
+                  setTimeout(() => {
+                      if (rivalStatus=='attack2') {
+                          rivalStatus = 'idle2'
+                      }
+                  }, 301);
+              }
+              if (survival==false) {
+                  if (rival_details.heal==0&&player_details.heal>0) {
+                      player_details.winner = true
+                  }
+              }
+              if (survival==true&&recover_time==false) {
+                  if (rival_details.heal==0&&player_details.heal>0) {
+                      rival.remove()
+                      recover_time = true;
+                      kills_text.textContent = parseInt(kills_text.textContent) + 1;
+                      setTimeout(() => {
+                          let new_rival = document.createElement('div')
+                          new_rival.setAttribute('class', 'rival')
+                          fullBox.appendChild(new_rival)
+                          rival_details.heal = 100;
+                          recover_time = false;
+                      }, 1000);
+                  }
+              }
+              if (player_details.heal==0&&rival_details.heal>0) {
+                  rival_details.winner = true
+              }
+              if (gameStart==true&&errorRotate==false) {
+                  if (rivalLeft-characterLeft<40&&rivalLeft-characterLeft>-40) {
+                      if (rival_details.heal>0&&characterStatus=='attack'&&player_details.blow_turn==false&&rival_details.jump==false) {
+                          rival_details.heal = rival_details.heal - player_details.attack
+                          player_details.blow_turn = true
+                          setTimeout(() => {
+                              player_details.blow_turn = false
+                          }, 501);
+                      }
+                      if (player_details.heal>0&&rivalStatus=='attack2'&&rival_details.blow_turn==false&&player_details.jump==false) {
+                          player_details.heal = player_details.heal - rival_details.attack
+                          rival_details.blow_turn = true
+                          setTimeout(() => {
+                              rival_details.blow_turn = false
+                          }, 501);
+                      }
+                  }
+                  if (gameStart==true) {
+                      if (player_details.winner==true) {
+                          player_win()
+                      }
+                      if (rival_details.winner==true) {
+                          rival_win()
+                      }
+                  }
+              }
+          })
+      });
+
+      // rival controller keyup
+      window.addEventListener('keyup', function(event){
+          if (gameStart==true&&selectPlayer==true&&errorRotate==false) {
+              rival.forEach(function(rival2){
+                  let rivalLeft = parseInt(window.getComputedStyle(rival2).getPropertyValue('left'))
+                  let rivalRight = parseInt(window.getComputedStyle(rival2).getPropertyValue('right'))
+                  switch (event.key) {
+                      case "ArrowLeft":
+                          rivalStatus = 'walk2';
+                          if (rivalLeft>100&&rival_details.jump==false) {
+                              rival2.style.left = rivalLeft - 100 + 'px';
+                          }
+                          break;
+                      case "ArrowRight":
+                          if (rival_details.jump==false) {
+                              rivalStatus = 'walk2';
+                              rival2.style.left = rivalLeft + 100 + 'px';
+                          }
+                          break;
+                      case "ArrowDown":
+                          if (rivalStatus=='idle2') {
+                              rivalStatus = 'attack2';
+                          }
+                          break;
+                      case "ArrowUp":
+                          if (rival_details.jump==false) {
+                              rival_jump()
+                          }
+                          break;
+                      default:
+                          break;
+                  }
+              })
+          }
+      })
+
+      let computer_gameplay = setInterval(() => {
+          rival.forEach(function(rival2){
+              let rivalLeft = parseInt(window.getComputedStyle(rival2).getPropertyValue('left'))
+              let rivalRight = parseInt(window.getComputedStyle(rival2).getPropertyValue('right'))
+              let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
+              if (gameStart==true&&errorRotate==false&&selectPlayer==false) {
+                  if (rivalLeft-characterLeft<40&&rivalLeft-characterLeft>-40) {
+                      if (player_details.heal>0&&rival_details.blow_turn==false) {
+                          player_details.heal = player_details.heal - rival_details.attack
+                          rival_details.blow_turn = true
+                          rivalStatus = 'attack2'
+                          setTimeout(() => {
+                              rival_details.blow_turn = false
+                          }, 801);
+                      }
+                  }
+                  else{
+                      setTimeout(() => {
+                          if (rivalLeft-characterLeft>40) {
+                              rival2.style.left = rivalLeft - 100 + 'px'
+                          }
+                          else{
+                              rival2.style.left = rivalLeft + 100 + 'px'
+                          }
+                      }, 1500);
+                  }
+              }
+          })
+      });
+
+
+      // phone media controller
+    </script>
+  </body>
 </html>

@@ -21,5 +21,16 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-def battle(request):
-    return render(request, 'pages/battle.html')
+def battle(request, pk):
+    
+    battle = Battle.objects.all()
+    battle_empty = Battle.objects.filter(all_players=2)
+    battle_id = Battle.objects.filter(id=pk)
+    
+    context = {
+        'battle_all': battle,
+        'battle_id': battle_id,
+        'battle_empty': battle_empty,
+    }
+    
+    return render(request, 'pages/battle.html', context)
