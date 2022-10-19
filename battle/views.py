@@ -82,12 +82,12 @@ def battle_single_delete(request, pk):
     return Response("Successfull deleted")
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
-def all_players_count(request):
-	if request.method == "POST":
-		el_id = request.POST.get("el_id")
-		val = request.POST.get("all_players")
-		rate = Battle.objects.get(id=el_id)
-		rate.all_players = val
-		rate.save()
-		return JsonResponse({"success": "true", "score": val}, safe=False)
-	return JsonResponse({"success": "false"})
+# def all_players_count(request):
+# 	if request.method == "POST":
+# 		el_id = request.POST.get("el_id")
+# 		val = request.POST.get("all_players")
+# 		rate = Battle.objects.get(id=el_id)
+# 		rate.all_players = val
+# 		rate.save()
+# 		return JsonResponse({"success": "true", "score": val}, safe=False)
+# 	return JsonResponse({"success": "false"})
