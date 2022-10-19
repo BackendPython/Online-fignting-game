@@ -83,7 +83,7 @@ def battle_single_delete(request, pk):
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
 
-def edit_battle(request, pk):
+def battle_create(request):
     battle_edit = Battle.objects.count()
     if request.method == 'POST':
         rate_form = EditBattle(request.POST)
@@ -91,7 +91,7 @@ def edit_battle(request, pk):
             rate_form.save()
     else:
         rate_form = EditBattle()
-    return render(request, 'pages/battle.html', {
+    return render(request, 'pages/battle-create.html', {
         "edit_form": rate_form,
         "battle_count": battle_edit,
     })

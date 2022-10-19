@@ -15,6 +15,7 @@ urlpatterns = [
     path('battle', battle_api, name='battle'),
     path('battle-add', battle_add, name='battle_add'),
     path('battle-<int:pk>', battle_single, name='battle_single'),
+    path('battle-create', battle_create, name='battle_create'),
     path('battle-edit/<int:pk>', battle_single_edit, name='battle_single_edit'),
     path('battle-delete/<int:pk>', battle_single_delete, name='battle_single_delete'),
 ]

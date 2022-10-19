@@ -511,12 +511,18 @@
           font-size: 7px;
         }
       }
-
     </style>
 
     <!------------------------------------------------ script ------------------------------------------------>
-
     <script src="{% static 'js/battle.js' %}"></script>
+    <noscript
+      ><style>
+        .full {
+          display: none;
+        }
+      </style>
+      <h1>Please allow JavaScript for this site</h1></noscript
+    >
 
     <script>
             let player_heal_text = document.querySelector('.player-1-heal-text')
@@ -527,7 +533,6 @@
             let winner_page = document.querySelector('.winner-page')
             const character = document.querySelector('.character')
             let all_decive = document.querySelector('.all_decive')
-            let online_button = document.querySelector('.online')
             let computerBtn = document.querySelector('.computer')
             let fireball = document.querySelectorAll('.fireball')
             let survivalBtn = document.querySelector('.survival')
@@ -968,8 +973,7 @@
 
 
             // phone media controller
-
-
+            let online_button = document.querySelector('.online')
     </script>
   </body>
 </html>
