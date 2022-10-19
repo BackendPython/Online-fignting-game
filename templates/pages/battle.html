@@ -584,10 +584,9 @@
                 blow_turn: false,
             }
 
-              setInterval(() => {
+              function get_real(){
                   // api url
-              const api_url =
-              `/battle-2`;
+              const api_url = `/battle-{{ battle_id.id }}`;
 
               // Defining async function
               async function getapi(url) {
@@ -623,7 +622,7 @@
                 rival_details.winner = data.rival_winner
                 all_number = data.all_players
               }
-              }, 10);
+              }
             // functions
 
             function remove_fireball() {

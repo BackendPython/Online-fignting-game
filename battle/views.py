@@ -92,7 +92,7 @@ def battle_create(request):
     else:
         rate_form = EditBattle()
     return render(request, 'pages/battle-create.html', {
-        "edit_form": rate_form,
+        "create_form": rate_form,
         "battle_count": battle_edit,
     })
         

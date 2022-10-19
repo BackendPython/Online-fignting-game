@@ -1,60 +1,93 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/base.html' %} {% load static %}
 
-{% block title %}Create{% endblock %}
-
-
-{% block content %}
+ {% block title %}Create{%endblock %}
+ {% block content %}
 
 <div class="create_form">
-    <form>
-        <h1>{{ request.user.username }}</h1>
-        <button>Create game server</button>
-    </form>
+    <div class="box">
+        <img src="{% static 'images/main.jpg' %}" width="100%" />
+        <button class="create_button">Create game server</button>
+    </div>
+    <div class="successful_box">
+        <a href=""></a>
+    </div>
 </div>
 
-{% endblock %}
+<style>
+.successful_box{ 
+    width: 120%;
+    height: auto;
+    display: flex;
+    font-size: 15px;
+    margin-left: -10%;
+    padding: 20px 40px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+  .create_form {
+    top: 20%;
+    left: 40%;
+    width: 10%;
+    display: grid;
+    position: absolute;
 
-
-
-
-
-
+  }
+  .create_form button {
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+    padding: 10% 10%;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
 
 <script>
-                // data to be sent to the POST request
-            let data = {
-                id: {{ battle_id.id }},
-                all_players: 0,
-                first_player: "{{ request.user.username }}",
-                second_player: "null",
-                player_heal: 100,
-                player_attack: 10,
-                player_jump: false,
-                player_winner: false,
-                player_blow_turn: false,
-                rival_heal: 100,
-                rival_attack: 10,
-                rival_jump: false,
-                rival_winner: false,
-                rival_blow_turn: false,
-            }
+  let successful_box = document.querySelector(".successful_box")
+  let create_button = document.querySelector(".create_button")
+  let create_form = document.querySelector('.create_form')
+  // data to be sent to the POST request
+  let data = {
+    all_players: 1,
+    first_player: "{{ request.user.username }}",
+    second_player: "null",
+    player_heal: 100,
+    player_attack: 10,
+    player_jump: false,
+    player_winner: false,
+    player_blow_turn: false,
+    rival_heal: 100,
+    rival_attack: 10,
+    rival_jump: false,
+    rival_winner: false,
+    rival_blow_turn: false,
+  };
 
-            function edit() {
-              submit = true
-              fetch('/battle-edit/2', {
-              method: 'POST', // or 'PUT'
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': '{{ csrf_token }}',
-              },
-              body: JSON.stringify(data),
-              })
-              .then((response) => response.json())
-              .then((data) => {
-                  console.log('Success:', data);
-              })
-              .catch((error) => {
-                  console.error('Error:', error);
-              });
-            }
+  function create() {
+    fetch("/battle-add", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success");
+        let new_url = `http://127.0.0.1:8000/battle/${data.id}`
+        let link = successful_box.querySelector('a')
+        successful_box.style.display = 'flex'
+        link.innerHTML = `Successful! Your link: ${new_url}`
+        link.href = new_url
+        // link.href = `https://https://fighting-online.herokuapp.com/battle/${data.id}`
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+  create_button.addEventListener("click", create);
 </script>
+
+{% endblock %}
