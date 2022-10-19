@@ -29,8 +29,8 @@
 
       <!-- select menu -->
       <div class="select">
-        {% csrf_token %}
-        <form method="post" id="{{ battle_id.id }}" class="login-form">
+        <form method="post" id="{{ battle_id.id }}" class="new">
+          {% csrf_token %}
           <button class="online" type="submit">
             <i class="fa-solid fa-robot"></i> Online
           </button>
@@ -969,18 +969,17 @@
 
             // all stars here
             setInterval(() => {
-            const form = document.querySelector(".login-form");
-            const confirmBox = document.getElementById("confirm-box");
+            let form = document.querySelector(".new");
 
             if (all_number<2&&main_num==false) {
-              all_number = all_number + 1;
-              main_num = true
+              main_num = true;
+              all_number++;
             }
 
             // Example POST method implementation:
             async function postData(url = `/battle/${form.id}`, data = {
                 "id": 2,
-                "all_players": all_number = all_number + 1,
+                "all_players": all_number,
                 "first_player": "super",
                 "second_player": "SALom2",
                 "player_heal": 100,
@@ -1011,13 +1010,14 @@
               return response.json(); // parses JSON response into native JavaScript objects
             }
 
-            postData(`/battle-${form.id}`, { answer: 42 })
+            postData(`/battle-edit/${form.id}`,)
               .then((data) => {
                 console.log(data); // JSON data parsed by `data.json()` call
+                console.log(all_number);
               });
 
 
-            }, 10);
+            }, 1000);
 
 
     </script>
