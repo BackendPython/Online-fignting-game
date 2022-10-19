@@ -975,46 +975,35 @@
               main_num = true;
               all_number++;
             }
+            Allow: GET, POST, HEAD
+            const api_url = `/battle-edit/${form.id}`
 
-            // Example POST method implementation:
-            async function postData(url = `/battle/${form.id}`, data = {
-                "id": 2,
-                "all_players": all_number,
-                "first_player": "super",
-                "second_player": "SALom2",
-                "player_heal": 100,
-                "player_attack": 10,
-                "player_jump": false,
-                "player_winner": false,
-                "player_blow_turn": false,
-                "rival_heal": 100,
-                "rival_attack": 10,
-                "rival_jump": false,
-                "rival_winner": false,
-                "rival_blow_turn": false
-            }) {
-              // Default options are marked with *
-              const response = await fetch(url, {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                  'Content-Type': 'application/json'
-                  // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(data) // body data type must match "Content-Type" header
-              });
-              return response.json(); // parses JSON response into native JavaScript objects
+            function querySomething(){
+            $.ajax({
+              type: "POST",
+              url: "/my/url/",
+              data: {
+                  "id": 2,
+                  "all_players": 0,
+                  "first_player": "super",
+                  "second_player": "SALom2",
+                  "player_heal": 100,
+                  "player_attack": 10,
+                  "player_jump": false,
+                  "player_winner": false,
+                  "player_blow_turn": false,
+                  "rival_heal": 100,
+                  "rival_attack": 10,
+                  "rival_jump": false,
+                  "rival_winner": false,
+                  "rival_blow_turn": false
+              },
+              success: function() {
+                alert('success');
+              }
+            });
             }
-
-            postData(`/battle-edit/${form.id}`,)
-              .then((data) => {
-                console.log(data); // JSON data parsed by `data.json()` call
-                console.log(all_number);
-              });
+            console.log(all_number);
 
 
             }, 1000);
