@@ -962,51 +962,15 @@
             // phone media controller
 
 
-
-
-            // star post json
-           
-
-            // all stars here
-            setInterval(() => {
             let form = document.querySelector(".new");
+            let post_api = `/battle-edit/${form.id}`
 
-            if (all_number<2&&main_num==false) {
-              main_num = true;
-              all_number++;
+            // data to be sent to the POST request
+            let _data = {
+              
             }
-            Allow: GET, POST, HEAD
-            const api_url = `/battle-edit/${form.id}`
-
-            function querySomething(){
-            $.ajax({
-              type: "POST",
-              url: "/my/url/",
-              data: {
-                  "id": 2,
-                  "all_players": 0,
-                  "first_player": "super",
-                  "second_player": "SALom2",
-                  "player_heal": 100,
-                  "player_attack": 10,
-                  "player_jump": false,
-                  "player_winner": false,
-                  "player_blow_turn": false,
-                  "rival_heal": 100,
-                  "rival_attack": 10,
-                  "rival_jump": false,
-                  "rival_winner": false,
-                  "rival_blow_turn": false
-              },
-              success: function() {
-                alert('success');
-              }
-            });
-            }
-            console.log(all_number);
 
 
-            }, 1000);
 
 
     </script>
