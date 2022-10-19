@@ -16,3 +16,8 @@ class UserCreate(UserCreationForm):
         model = User
         fields = ("username", 'email', 'age', 'region', 'bio')
         field_classes = {"username":UsernameField}
+        
+class EditBattle(forms.ModelForm):
+    class Meta:
+        model = Battle
+        fields = '__all__'

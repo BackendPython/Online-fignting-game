@@ -29,8 +29,7 @@
 
       <!-- select menu -->
       <div class="select">
-        <form method="post" id="{{ battle_id.id }}" class="new">
-          {% csrf_token %}
+        <form method="dialog" id="{{ battle_id.id }}" class="new">
           <button class="online" type="submit">
             <i class="fa-solid fa-robot"></i> Online
           </button>
@@ -404,6 +403,17 @@
 
       .select {
         display: grid;
+      }
+      .select .online {
+        font-size: 30px;
+        margin-top: 0px;
+        margin-left: 50px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        margin-bottom: 50px;
+        background-color: aqua;
+        border: 2px dashed blue;
+        box-shadow: -5px 10px black;
       }
       .select .computer {
         font-size: 30px;
@@ -983,6 +993,7 @@
                 "rival_blow_turn": false
             }
 
+            
 
 
 
