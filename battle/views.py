@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from rest_framework.response import Response
 from battle.serializer import BattleApi
 from rest_framework import permissions
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from battle.models import *
 from battle.form import *
 
@@ -82,6 +82,21 @@ def battle_single_delete(request, pk):
     return Response("Successfull deleted")
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
+
+def edit_battle(request, pk):
+    battle_edit = Battle.objects.get(id=pk)
+    if request.method == 'POST':
+        rate_form = EditBattle(request.POST, instance=battle_edit)
+        if rate_form.is_valid():
+            rate_form.save()
+    else:
+        rate_form = EditBattle(instance=battle_edit)
+    return render(request, 'pages/battle-edit.html', {
+        "rate_form": rate_form,
+        "battle": battle_edit,
+    })
+        
+
 # def all_players_count(request):
 # 	if request.method == "POST":
 # 		el_id = request.POST.get("el_id")

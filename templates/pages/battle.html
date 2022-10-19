@@ -29,18 +29,16 @@
 
       <!-- select menu -->
       <div class="select">
-        <form method="dialog" id="{{ battle_id.id }}" class="new">
-          <button class="online" type="submit">
-            <i class="fa-solid fa-robot"></i> Online
+          <button class="online" type="button">
+            <i class="fa-solid fa-earth-americas"></i> Online jang
           </button>
-        </form>
-        <button class="computer" type="submit">
+        <button class="computer" type="button">
           <i class="fa-solid fa-robot"></i> Botga qarshi
         </button>
-        <button class="friend" type="submit">
+        <button class="friend" type="button">
           <i class="fa-solid fa-user-group"></i> Do'stga qarshi
         </button>
-        <button class="survival" type="submit">
+        <button class="survival" type="button">
           <i class="fa-solid fa-skull"></i> Survival war
         </button>
       </div>
@@ -424,6 +422,10 @@
         background-color: aqua;
         border: 2px dashed blue;
         box-shadow: -5px 10px black;
+      }
+      .select .online:active {
+        box-shadow: none;
+        transform: translateY(10px);
       }
       .select .computer:active {
         box-shadow: none;
@@ -972,8 +974,8 @@
             // phone media controller
 
 
-            let form = document.querySelector(".new");
-            let post_api = `/battle-edit/${form.id}`
+            // let form = document.querySelector(".new");
+            // let post_api = `/battle-edit/${form.id}`
 
             // data to be sent to the POST request
             let _data = {
