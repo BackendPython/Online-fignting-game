@@ -12,7 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="icon" href="{% static 'images/pixel war.jpg' %}" />
+    <link rel="icon" href="{% static 'images/main.jpg' %}" />
     <link rel="stylesheet" href="{% static 'css/battle.css' %}" />
     <title>JS work</title>
   </head>
@@ -53,7 +53,7 @@
       <!-- end winner page -->
 
       <!----------------------------------------------- battle time html ----------------------------------------------->
-      <div class="all_decive"></div>
+
       <div class="heals">
         <!-- player -->
         <div class="player-1">
@@ -80,7 +80,7 @@
       </div>
       <div class="text" style="color: wheat; font-size: 2rem"></div>
       <div class="character"></div>
-      <div class="fireball fireball-character"></div>
+      <!-- <div class="fireball fireball-character"></div> -->
       <div class="rival"></div>
       <div class="phone"></div>
     </div>
@@ -511,18 +511,12 @@
           font-size: 7px;
         }
       }
+
     </style>
 
     <!------------------------------------------------ script ------------------------------------------------>
+
     <script src="{% static 'js/battle.js' %}"></script>
-    <noscript
-      ><style>
-        .full {
-          display: none;
-        }
-      </style>
-      <h1>Please allow JavaScript for this site</h1></noscript
-    >
 
     <script>
             let player_heal_text = document.querySelector('.player-1-heal-text')
@@ -533,6 +527,7 @@
             let winner_page = document.querySelector('.winner-page')
             const character = document.querySelector('.character')
             let all_decive = document.querySelector('.all_decive')
+            let online_button = document.querySelector('.online')
             let computerBtn = document.querySelector('.computer')
             let fireball = document.querySelectorAll('.fireball')
             let survivalBtn = document.querySelector('.survival')
@@ -554,6 +549,7 @@
             let main_num = false
             let media = false;
             let all_number = 0
+            let submit = false
 
 
             // fullscreen
@@ -972,31 +968,6 @@
 
 
             // phone media controller
-
-
-            // let form = document.querySelector(".new");
-            // let post_api = `/battle-edit/${form.id}`
-
-            // data to be sent to the POST request
-            let _data = {
-                "id": 2,
-                "all_players": 0,
-                "first_player": "super",
-                "second_player": "SALom2",
-                "player_heal": 100,
-                "player_attack": 10,
-                "player_jump": false,
-                "player_winner": false,
-                "player_blow_turn": false,
-                "rival_heal": 100,
-                "rival_attack": 10,
-                "rival_jump": false,
-                "rival_winner": false,
-                "rival_blow_turn": false
-            }
-
-            
-
 
 
     </script>

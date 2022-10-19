@@ -84,16 +84,16 @@ def battle_single_delete(request, pk):
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
 
 def edit_battle(request, pk):
-    battle_edit = Battle.objects.get(id=pk)
+    battle_edit = Battle.objects.count()
     if request.method == 'POST':
-        rate_form = EditBattle(request.POST, instance=battle_edit)
+        rate_form = EditBattle(request.POST)
         if rate_form.is_valid():
             rate_form.save()
     else:
-        rate_form = EditBattle(instance=battle_edit)
-    return render(request, 'pages/battle-edit.html', {
-        "rate_form": rate_form,
-        "battle": battle_edit,
+        rate_form = EditBattle()
+    return render(request, 'pages/battle.html', {
+        "edit_form": rate_form,
+        "battle_count": battle_edit,
     })
         
 
@@ -104,5 +104,5 @@ def edit_battle(request, pk):
 # 		rate = Battle.objects.get(id=el_id)
 # 		rate.all_players = val
 # 		rate.save()
-# 		return JsonResponse({"success": "true", "score": val}, safe=False)
+# 		return JsonResponse({"success": "true", "score": val})
 # 	return JsonResponse({"success": "false"})
