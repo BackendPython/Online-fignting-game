@@ -538,6 +538,7 @@
             const fullBox = document.querySelector('.full')
             let rival = document.querySelectorAll('.rival')
             let heals = document.querySelector('.heals')
+            let battle_id = {{ battle_id.id }}
             let characterStatus = 'idle';
             let second_player = 'null';
             let first_player = 'null';
@@ -548,9 +549,27 @@
             let gameStart = false;
             let survival = false;
             let main_num = false;
+            let change = false;
             let all_number = 0;
             let submit = false;
             let media = false;
+            
+            let data_org = {
+                id: battle_id,
+                all_players: 2,
+                player_heal: 100,
+                player_left: 2,
+                player_attack: 10,
+                player_jump: false,
+                player_winner: false,
+                player_blow_turn: false,
+                rival_heal: 100,
+                rival_attack: 10,
+                riavl_right: 2,
+                rival_jump: false,
+                rival_winner: false,
+                rival_blow_turn: false,
+            }
 
 
             // fullscreen
@@ -587,40 +606,41 @@
             // functions
 
             function player_left_add() {
-              player_details.left = player_details.left + 4
+              data_org.player_left = data_org.player_left+4
             }
 
             function player_left_remove() {
-              player_details.left = player_details.left - 4
+              data_org.player_left = data_org.player_left-4
             }
 
             function rival_right_add() {
-              rival_details.right = rival_details.right + 4
+              data_org.riavl_right = data_org.riavl_right + 4
             }
 
             function rival_right_remove() {
-              rival_details.right = rival_details.right - 4
+              data_org.riavl_right = data_org.rival_right-4
             }
 
             function post_data(second_player_name) {
-              let data_format = {
-                id: 140,
-                all_players: 2,
-                first_player: first_player,
-                second_player: second_player_name,
-                player_heal: 100,
-                player_left: 2,
-                player_attack: 10,
-                player_jump: false,
-                player_winner: false,
-                player_blow_turn: false,
-                rival_heal: 100,
-                rival_attack: 10,
-                riavl_right: 2,
-                rival_jump: false,
-                rival_winner: false,
-                rival_blow_turn: false
-            }
+                let data_format = {
+                  id: battle_id,
+                  all_players: 2,
+                  first_player: first_player,
+                  second_player: second_player_name,
+                  player_heal: data_org.player_heal,
+                  player_left: data_org.player_left,
+                  player_attack: data_org.player_attack,
+                  player_jump: data_org.player_jump,
+                  player_winner: data_org.player_winner,
+                  player_blow_turn: data_org.player_blow_turn,
+                  rival_heal: data_org.rival_heal,
+                  rival_attack: data_org.rival_attack,
+                  riavl_right: data_org.riavl_right,
+                  rival_jump: data_org.rival_jump,
+                  rival_winner: data_org.rival_winner,
+                  rival_blow_turn: data_org.rival_blow_turn,
+              }
+
               fetch("/battle-edit/{{ battle_id.id }}", {
                 method: "POST", // or 'PUT'
                 headers: {
@@ -631,7 +651,7 @@
               })
                 .then((response) => response.json())
                 .then((data) => {
-                  console.log("Success", data);
+                  change = false
                 })
                 .catch((error) => {
                   console.error("Error:", error);
@@ -1042,13 +1062,19 @@
             // online gameplay
 
             let online_connect = setInterval(() => {
+              if (change==false) {
                 get_real()
-                character.style.left = player_details.left + '%';
-                rival[0].style.right = rival_details.right + '%';
+              }
+              if (change==true) {
+                post_data()
+              }
+              character.style.left = player_details.left + '%';
+              rival[0].style.right = rival_details.right + '%';
             }, 10);
 
+            // player online
             window.addEventListener('keyup', function () {
-              if (gameStart==true&&errorRotate==false&&selectPlayer=='online') {
+              if (gameStart==true&&errorRotate==false&&selectPlayer=='online'&&first_player=='{{ request.user.username }}') {
                     let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
                     let characterRight = parseInt(window.getComputedStyle(character).getPropertyValue('right'))
                     switch (event.key) {
@@ -1078,9 +1104,45 @@
                             break;
                     }
                     post_data()
+                    change = true
                 }
             })
 
+              // rival online
+              window.addEventListener('keyup', function(event){
+                if (gameStart==true&&selectPlayer==true&&errorRotate==false) {
+                    rival.forEach(function(rival2){
+                        let rivalLeft = parseInt(window.getComputedStyle(rival2).getPropertyValue('left'))
+                        let rivalRight = parseInt(window.getComputedStyle(rival2).getPropertyValue('right'))
+                        switch (event.key) {
+                            case "ArrowLeft":
+                                rivalStatus = 'walk2';
+                                if (rivalLeft>100&&rival_details.jump==false) {
+                                    rival2.style.left = rivalLeft - 100 + 'px';
+                                }
+                                break;
+                            case "ArrowRight":
+                                if (rival_details.jump==false) {
+                                    rivalStatus = 'walk2';
+                                    rival2.style.left = rivalLeft + 100 + 'px';
+                                }
+                                break;
+                            case "ArrowDown":
+                                if (rivalStatus=='idle2') {
+                                    rivalStatus = 'attack2';
+                                }
+                                break;
+                            case "ArrowUp":
+                                if (rival_details.jump==false) {
+                                    rival_jump()
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                }
+            })
             // phone media controller
 
     </script>
