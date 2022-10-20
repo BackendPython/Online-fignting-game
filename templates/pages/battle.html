@@ -641,7 +641,7 @@
                   rival_blow_turn: data_org.rival_blow_turn,
               }
 
-              fetch("/battle-edit/{{ battle_id.id }}", {
+              fetch(`/battle-edit/${battle_id}`, {
                 method: "POST", // or 'PUT'
                 headers: {
                   "Content-Type": "application/json",
@@ -652,6 +652,8 @@
                 .then((response) => response.json())
                 .then((data) => {
                   change = false
+                  submit = true
+                  console.log('succes', data);
                 })
                 .catch((error) => {
                   console.error("Error:", error);
@@ -659,7 +661,7 @@
             }
 
             function get_real(){
-              const api_url = `/battle-{{ battle_id.id }}`;
+              const api_url = `/battle-${battle_id}`;
 
               // Defining async function
               async function getapi(url) {
@@ -679,7 +681,7 @@
 
               // Function to hide the loader
               function hideloader() {
-
+                console.log('succes get');
               }
               // Function to define innerHTML for HTML table
               function show(data) {
@@ -1116,15 +1118,15 @@
                         let rivalRight = parseInt(window.getComputedStyle(rival2).getPropertyValue('right'))
                         switch (event.key) {
                             case "ArrowLeft":
-                                rivalStatus = 'walk2';
-                                if (rivalLeft>100&&rival_details.jump==false) {
-                                    rival2.style.left = rivalLeft - 100 + 'px';
+                              if (rivalLeft>100&&rival_details.jump==false) {
+                                  rivalStatus = 'walk2';
+                                    rival_right_add()
                                 }
                                 break;
                             case "ArrowRight":
                                 if (rival_details.jump==false) {
                                     rivalStatus = 'walk2';
-                                    rival2.style.left = rivalLeft + 100 + 'px';
+                                    rival_right_add()
                                 }
                                 break;
                             case "ArrowDown":
