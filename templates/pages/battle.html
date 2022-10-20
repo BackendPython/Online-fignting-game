@@ -179,9 +179,9 @@
       }
 
       .rival-1 {
+        right: 3%;
         width: 45%;
         height: 80%;
-        right: 3%;
         display: flex;
         padding-left: 20px;
         position: absolute;
@@ -515,14 +515,7 @@
 
     <!------------------------------------------------ script ------------------------------------------------>
     <script src="{% static 'js/battle.js' %}"></script>
-    <noscript
-      ><style>
-        .full {
-          display: none;
-        }
-      </style>
-      <h1>Please allow JavaScript for this site</h1></noscript
-    >
+
 
     <script>
             let player_heal_text = document.querySelector('.player-1-heal-text')
@@ -533,6 +526,7 @@
             let winner_page = document.querySelector('.winner-page')
             const character = document.querySelector('.character')
             let all_decive = document.querySelector('.all_decive')
+            let online_button = document.querySelector('.online')
             let computerBtn = document.querySelector('.computer')
             let fireball = document.querySelectorAll('.fireball')
             let survivalBtn = document.querySelector('.survival')
@@ -551,7 +545,7 @@
             let errorRotate = false;
             let gameStart = false;
             let survival = false;
-            let main_num = false
+            let main_num = false;
             let media = false;
             let all_number = 0
             let submit = false
@@ -570,6 +564,7 @@
 
             // details
             let player_details = {
+                left: 2,
                 heal: 100,
                 attack: 10,
                 jump: false,
@@ -577,6 +572,7 @@
                 blow_turn: false,
             }
             let rival_details = {
+                right: 2,
                 heal: 100,
                 attack: 10,
                 jump: false,
@@ -584,8 +580,12 @@
                 blow_turn: false,
             }
 
-              function get_real(){
-                  // api url
+            // functions
+            function post_data() {
+              
+            }
+
+            function get_real(){
               const api_url = `/battle-{{ battle_id.id }}`;
 
               // Defining async function
@@ -599,7 +599,7 @@
               if (response) {
               hideloader();
               }
-              show(data);
+              show(data)
               }
               // Calling that async function
               getapi(api_url);
@@ -610,6 +610,7 @@
               }
               // Function to define innerHTML for HTML table
               function show(data) {
+                if (selectPlayer=='online') {
                 player_details.heal = data.player_heal
                 player_details.attack = data.player_attack
                 player_details.jump = data.player_jump
@@ -621,9 +622,14 @@
                 rival_details.blow_turn = data.rival_blow_turn
                 rival_details.winner = data.rival_winner
                 all_number = data.all_players
+                }
               }
               }
-            // functions
+
+            function start_online(){
+              gameStart = true
+              selectPlayer = 'online'
+            }
 
             function remove_fireball() {
                 fireball = document.querySelectorAll('.fireball')
@@ -739,7 +745,7 @@
                 rival_details.heal = 100;
                 rival_details.attack = 5
             })
-
+            online_button.addEventListener('click', start_online)
 
             // characterStatus checking
             let check = setInterval(() => {
@@ -970,9 +976,50 @@
                 })
             });
 
+            // online gameplay
+
+            let online_connect = setInterval(() => {
+                character.style.left = player_details.left + '%';
+                rival[0].style.right = rival_details.right + '%';
+                console.error('helwkkdj');
+            }, 10);
+
+            window.addEventListener('keyup', function () {
+              if (gameStart==true&&errorRotate==false&&selectPlayer=='online') {
+                    post_data()
+                    let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
+                    let characterRight = parseInt(window.getComputedStyle(character).getPropertyValue('right'))
+                    switch (event.key) {
+                        case "a":
+                            characterStatus = 'walk'
+                            if (characterLeft>100&&player_details.jump==false) {
+                                character.style.left = characterLeft - 100 + 'px'
+                            }
+                            break;
+                        case "d":
+                            characterStatus = 'walk'
+                            if (characterRight>100&&player_details.jump==false) {
+                                character.style.left = characterLeft + 100 + 'px'
+                            }
+                            break;
+                        case "w":
+                            if (player_details.jump==false) {
+                                player_jump()
+                            }
+                            break;
+                        case " ":
+                            if (characterStatus=='idle') {
+                                characterStatus = 'attack'
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
 
             // phone media controller
-            let online_button = document.querySelector('.online')
     </script>
+    
   </body>
 </html>

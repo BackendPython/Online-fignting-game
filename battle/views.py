@@ -91,10 +91,7 @@ def battle_create(request):
             rate_form.save()
     else:
         rate_form = EditBattle()
-    return render(request, 'pages/battle-create.html', {
-        "create_form": rate_form,
-        "battle_count": battle_edit,
-    })
+    return render(request, 'pages/battle-create.html', {})
         
 
 # def all_players_count(request):
