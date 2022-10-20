@@ -76,12 +76,19 @@
       .then((response) => response.json())
       .then((data) => {
         console.log("Success");
-        let new_url = `http://127.0.0.1:8000/battle/${data.id}`
+        let window_url = window.location.href
         let link = successful_box.querySelector('a')
-        successful_box.style.display = 'flex'
-        link.innerHTML = `Successful! Your link: ${new_url}`
-        
-        link.href = new_url
+        let host_url = `https://fighting-online.herokuapp.com/battle/${data.id}`
+        let local_url = `http://127.0.0.1:8000/battle/${data.id}`
+        if (window_url.charAt(9)=='7') {
+          link.href = local_url
+          link.innerHTML = `Successful! Your link: ${local_url}`
+        }
+        else{
+          console.log('error');
+          link.href = host_url
+          link.innerHTML = `Successful! Your link: ${host_url}`
+        }
         // link.href = `https://https://fighting-online.herokuapp.com/battle/${data.id}`
       })
       .catch((error) => {
