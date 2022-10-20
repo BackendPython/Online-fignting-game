@@ -581,6 +581,23 @@
             }
 
             // functions
+
+            function player_left_add() {
+              player_details.left = player_details.left + 4
+            }
+
+            function player_left_remove() {
+              player_details.left = player_details.left - 4
+            }
+
+            function rival_right_add() {
+              rival_details.right = rival_details.right + 4
+            }
+            
+            function rival_right_remove() {
+              rival_details.right = rival_details.right - 4
+            }
+
             function post_data() {
               
             }
@@ -981,25 +998,24 @@
             let online_connect = setInterval(() => {
                 character.style.left = player_details.left + '%';
                 rival[0].style.right = rival_details.right + '%';
-                console.error('helwkkdj');
+                
             }, 10);
 
             window.addEventListener('keyup', function () {
               if (gameStart==true&&errorRotate==false&&selectPlayer=='online') {
-                    post_data()
                     let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
                     let characterRight = parseInt(window.getComputedStyle(character).getPropertyValue('right'))
                     switch (event.key) {
                         case "a":
                             characterStatus = 'walk'
                             if (characterLeft>100&&player_details.jump==false) {
-                                character.style.left = characterLeft - 100 + 'px'
+                                player_details.left = player_details.left - 1
                             }
                             break;
                         case "d":
                             characterStatus = 'walk'
                             if (characterRight>100&&player_details.jump==false) {
-                                character.style.left = characterLeft + 100 + 'px'
+                                player_details.left = player_details.left + 1
                             }
                             break;
                         case "w":
@@ -1015,6 +1031,7 @@
                         default:
                             break;
                     }
+                    post_data()
                 }
             })
 
