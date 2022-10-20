@@ -539,6 +539,8 @@
             let rival = document.querySelectorAll('.rival')
             let heals = document.querySelector('.heals')
             let characterStatus = 'idle';
+            let second_player = 'null';
+            let first_player = 'null';
             let rivalStatus = 'idle2';
             let recover_time = false;
             let selectPlayer = null;
@@ -546,9 +548,9 @@
             let gameStart = false;
             let survival = false;
             let main_num = false;
+            let all_number = 0;
+            let submit = false;
             let media = false;
-            let all_number = 0
-            let submit = false
 
 
             // fullscreen
@@ -570,6 +572,7 @@
                 jump: false,
                 winner: false,
                 blow_turn: false,
+                first_player: null,
             }
             let rival_details = {
                 right: 2,
@@ -578,6 +581,7 @@
                 jump: false,
                 winner: false,
                 blow_turn: false,
+                second_player: null,
             }
 
             // functions
@@ -593,13 +597,45 @@
             function rival_right_add() {
               rival_details.right = rival_details.right + 4
             }
-            
+
             function rival_right_remove() {
               rival_details.right = rival_details.right - 4
             }
 
-            function post_data() {
-              
+            function post_data(second_player_name) {
+              let data_format = {
+                id: 140,
+                all_players: 2,
+                first_player: first_player,
+                second_player: second_player_name,
+                player_heal: 100,
+                player_left: 2,
+                player_attack: 10,
+                player_jump: false,
+                player_winner: false,
+                player_blow_turn: false,
+                rival_heal: 100,
+                rival_attack: 10,
+                riavl_right: 2,
+                rival_jump: false,
+                rival_winner: false,
+                rival_blow_turn: false
+            }
+              fetch("/battle-edit/{{ battle_id.id }}", {
+                method: "POST", // or 'PUT'
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: JSON.stringify(data_format),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log("Success", data);
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
             }
 
             function get_real(){
@@ -628,6 +664,10 @@
               // Function to define innerHTML for HTML table
               function show(data) {
                 if (selectPlayer=='online') {
+                first_player = data.first_player
+                second_player = data.second_player
+                player_details.left = data.player_left
+                rival_details.right = data.rival_right
                 player_details.heal = data.player_heal
                 player_details.attack = data.player_attack
                 player_details.jump = data.player_jump
@@ -639,6 +679,12 @@
                 rival_details.blow_turn = data.rival_blow_turn
                 rival_details.winner = data.rival_winner
                 all_number = data.all_players
+                if (data.first_player=='{{ request.user.username }}') {
+                  submit = true
+                }
+                if (data.first_player!='{{ request.user.username }}'&&data.second_player=='null') {
+                  post_data('{{ request.user.username }}')
+                }
                 }
               }
               }
@@ -821,13 +867,13 @@
                         case "a":
                             characterStatus = 'walk'
                             if (characterLeft>100&&player_details.jump==false) {
-                                character.style.left = characterLeft - 100 + 'px'
+                                player_details.left = player_details.left - 4
                             }
                             break;
                         case "d":
                             characterStatus = 'walk'
                             if (characterRight>100&&player_details.jump==false) {
-                                character.style.left = characterLeft + 100 + 'px'
+                              player_details.left = player_details.left + 4
                             }
                             break;
                         case "w":
@@ -996,9 +1042,9 @@
             // online gameplay
 
             let online_connect = setInterval(() => {
+                get_real()
                 character.style.left = player_details.left + '%';
                 rival[0].style.right = rival_details.right + '%';
-                
             }, 10);
 
             window.addEventListener('keyup', function () {
@@ -1009,13 +1055,13 @@
                         case "a":
                             characterStatus = 'walk'
                             if (characterLeft>100&&player_details.jump==false) {
-                                player_details.left = player_details.left - 1
+                                player_left_remove()
                             }
                             break;
                         case "d":
                             characterStatus = 'walk'
                             if (characterRight>100&&player_details.jump==false) {
-                                player_details.left = player_details.left + 1
+                                player_left_add()
                             }
                             break;
                         case "w":
@@ -1036,6 +1082,7 @@
             })
 
             // phone media controller
+
     </script>
     
   </body>
