@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render, redirect, reverse
 from rest_framework.response import Response
-from battle.serializer import BattleApi
+from battle.serializer import Battle2_Api, BattleApi
 from rest_framework import permissions
 from django.http import HttpResponse, JsonResponse
 from battle.models import *
@@ -83,8 +83,55 @@ def battle_single_delete(request, pk):
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
 
-def token(request):
-    return render(request, 'includes/token.html')
+# ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
+
+# get api
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def battle2_api(request):
+    battle = Battle_tic_tacoe.objects.all()
+    serializer = Battle2_Api(battle, many=True)
+    return Response(serializer.data)
+
+# add battle
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def battle2_add(request):
+    serializer = Battle2_Api(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+# search battle with id
+@api_view(["GET"])
+@permission_classes((permissions.AllowAny, ))
+def battle2_single(request, pk):
+    battle = Battle_tic_tacoe.objects.get(id=pk)
+    serializer = Battle2_Api(battle, many=False)
+    return Response(serializer.data)
+
+# edit battle
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def battle2_single_edit(request, pk):
+    battle = Battle_tic_tacoe.objects.get(id=pk)
+    serializer = Battle2_Api(instance=battle, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+# delete battle
+@api_view(['DELETE'])
+@permission_classes((permissions.AllowAny,))
+def battle2_single_delete(request, pk):
+    krasovka = Battle_tic_tacoe.objects.get(id=pk)
+    krasovka.delete()
+    return Response("Successfull deleted")
+
+# ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
+
+
+
 
 def battle_create(request):
     battle_edit = Battle.objects.count()

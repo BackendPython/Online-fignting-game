@@ -13,10 +13,15 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     
     path('battle/', battle_api, name='battle'),
-    path('token/', token, name='token'),
     path('battle-add', battle_add, name='battle_add'),
     path('battle-<int:pk>', battle_single, name='battle_single'),
-    path('battle-create', battle_create, name='battle_create'),
+    path('battle2-create', battle_create, name='battle_create'),
     path('battle-edit/<int:pk>', battle_single_edit, name='battle_single_edit'),
     path('battle-delete/<int:pk>', battle_single_delete, name='battle_single_delete'),
+    
+    path('battle2/', battle2_api, name='battle2'),
+    path('battle2-add', battle2_add, name='battle_add2'),
+    path('battle2-<int:pk>', battle2_single, name='battle_single2'),
+    path('battle2-edit/<int:pk>', battle2_single_edit, name='battle_single_edit2'),
+    path('battle2-delete/<int:pk>', battle2_single_delete, name='battle_single_delete2'),
 ]
