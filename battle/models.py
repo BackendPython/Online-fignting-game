@@ -30,4 +30,15 @@ class Battle(models.Model):
     
     def __str__(self):
         return f"{self.first_player} vs {self.second_player}"
+    
+class Battle_tic_tacoe(models.Model):
+    first_player = models.CharField(max_length=50)
+    second_player = models.CharField(max_length=50)
+    rival_turn = models.BooleanField(default=False)
+    player_turn = models.BooleanField(default=False)
+    rival_winner = models.BooleanField(default=False)
+    player_winner = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.first_player} vs {self.second_player}"
 

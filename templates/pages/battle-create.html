@@ -76,7 +76,6 @@
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success");
         let window_url = window.location.href
         let link = successful_box.querySelector('a')
         let host_url = `https://fighting-online.herokuapp.com/battle/${data.id}`
@@ -86,7 +85,6 @@
           link.innerHTML = `Successful! Your link: ${local_url}`
         }
         else{
-          console.log('error');
           link.href = host_url
           link.innerHTML = `Successful! Your link: ${host_url}`
         }
@@ -96,6 +94,7 @@
         console.error("Error:", error);
       });
   }
+
   create_button.addEventListener("click", create);
 </script>
 
