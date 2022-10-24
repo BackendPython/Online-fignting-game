@@ -88,6 +88,53 @@
     let result_box = document.querySelector('.result_box')
     let cub_boxes = document.querySelectorAll('.cub')
     let cubs = document.querySelector('.cubs')
+    let second_player = null;
+    let first_player = null;
+
+
+
+    function get_api(){
+              const api_url = `/battle2-${battle_id}`;
+
+              // Defining async function
+              async function getapi(url) {
+
+              // Storing response
+              const response = await fetch(url);
+
+              // Storing data in form of JSON
+              var data = await response.json();
+              if (response) {
+              hideloader();
+              }
+              show(data)
+              }
+              // Calling that async function
+              getapi(api_url);
+
+              // Function to hide the loader
+              function hideloader() {
+                
+              }
+              // Function to define innerHTML for HTML table
+              function show(data) {
+                if (selectPlayer=='online') {
+                first_player = data.first_player
+                second_player = data.second_player
+                rival_details.winner = data.rival_winner
+                player_details.winner = data.player_winner
+                player_details.blow_turn = data.player_turn
+                rival_details.blow_turn = data.rival_blow_turn
+                if (data.first_player!='{{ request.user.username }}'&&data.second_player=='null') {
+                  post_data('{{ request.user.username }}')
+                }
+                else{
+                  post_data(second_player)
+                }
+                }
+              }
+              }
+
 
 
     cub_boxes.forEach(function (cub) {
