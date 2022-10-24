@@ -11,7 +11,7 @@
 
     <div class="tictacoe">
         <div class="result_box"></div>
-        <div class="cubs">
+        <div class="cub_boxes">
             <div class="cub"></div>
             <div class="cub"></div>
             <div class="cub"></div>
@@ -58,7 +58,7 @@
             align-items: center;
             justify-content: center;
         }
-        .tictacoe .cubs{
+        .tictacoe .cub_boxes{
             width: 25%;
             height: 50%;
             display: flex;
@@ -69,7 +69,7 @@
             border: 2px solid gray;
             background-color: yellow;
         }
-        .cubs .cub{
+        .cub_boxes .cub{
             width: 25%;
             height: 25%;
             font-size: 20px;
@@ -87,11 +87,44 @@
 <script>
     let result_box = document.querySelector('.result_box')
     let cub_boxes = document.querySelectorAll('.cub')
-    let cubs = document.querySelector('.cubs')
+    let cubs = document.querySelector('.cub_boxes')
+    let battle_id = {{ battle_single.id }}
+    let player_winner = false;
+    let rival_winner = false;
     let second_player = null;
+    let player_turn = false;
+    let rival_turn = false;
+    let game_start = false;
     let first_player = null;
+    let game_detals = {
+        box_1: null,
+        box_2: null,
+        box_3: null,
+        box_4: null,
+        box_5: null,
+        box_6: null,
+        box_7: null,
+        box_8: null,
+        box_9: null,
+
+    }
+
+    function post_data(second_player_name){
+        
+    }
 
 
+    function name_post(second_player_name) {
+        setTimeout(() => {
+            if (first_player!='{{ request.user.username }}'&&second_player=='null') {
+            post_data('{{ request.user.username }}')
+        }
+        else{
+            post_data(second_player)
+        }
+        }, 10);
+    }
+    name_post()
 
     function get_api(){
               const api_url = `/battle2-${battle_id}`;
@@ -118,19 +151,22 @@
               }
               // Function to define innerHTML for HTML table
               function show(data) {
-                if (selectPlayer=='online') {
+                if (game_start==false) {
+                game_detals.box_1 = data.box_1
+                game_detals.box_2 = data.box_2
+                game_detals.box_3 = data.box_3
+                game_detals.box_4 = data.box_4
+                game_detals.box_5 = data.box_5
+                game_detals.box_6 = data.box_6
+                game_detals.box_7 = data.box_7
+                game_detals.box_8 = data.box_8
+                game_detals.box_9 = data.box_9
                 first_player = data.first_player
                 second_player = data.second_player
-                rival_details.winner = data.rival_winner
-                player_details.winner = data.player_winner
-                player_details.blow_turn = data.player_turn
-                rival_details.blow_turn = data.rival_blow_turn
-                if (data.first_player!='{{ request.user.username }}'&&data.second_player=='null') {
-                  post_data('{{ request.user.username }}')
-                }
-                else{
-                  post_data(second_player)
-                }
+                rival_winner = data.rival_winner
+                player_winner = data.player_winner
+                player_turn = data.player_turn
+                rival_turn = data.rival_blow_turn
                 }
               }
               }
@@ -144,6 +180,37 @@
             }
         })
     })
+
+    setInterval(() => {
+        get_api()
+        if (game_detals.box_1!=null) {
+            cub_boxes[0].innerHTML = game_detals.box_1
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[1].innerHTML = game_detals.box_2
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[2].innerHTML = game_detals.box_3
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[3].innerHTML = game_detals.box_4
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[4].innerHTML = game_detals.box_5
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[5].innerHTML = game_detals.box_6
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[6].innerHTML = game_detals.box_7
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[7].innerHTML = game_detals.box_8
+        }
+        if (game_detals.box_1!=null) {
+            cub_boxes[8].innerHTML = game_detals.box_9
+        }
+    }, 100);
 
 </script>
 
