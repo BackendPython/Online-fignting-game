@@ -50,23 +50,16 @@
   let create_form = document.querySelector('.create_form')
   // data to be sent to the POST request
   let data = {
-    all_players: 1,
-    first_player: "{{ request.user.username }}",
-    second_player: "null",
-    player_heal: 100,
-    player_attack: 10,
-    player_jump: false,
-    player_winner: false,
-    player_blow_turn: false,
-    rival_heal: 100,
-    rival_attack: 10,
-    rival_jump: false,
+    rival_turn: false,
+    player_turn: false,
     rival_winner: false,
-    rival_blow_turn: false,
+    player_winner: false,
+    second_player: "null",
+    first_player: "{{ request.user.username }}",
   };
 
   function create() {
-    fetch("/battle-add", {
+    fetch("/battle2-add", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -78,8 +71,8 @@
       .then((data) => {
         let window_url = window.location.href
         let link = successful_box.querySelector('a')
-        let host_url = `https://fighting-online.herokuapp.com/battle/${data.id}`
-        let local_url = `http://127.0.0.1:8000/battle/${data.id}`
+        let host_url = `https://fighting-online.herokuapp.com/battle2/${data.id}`
+        let local_url = `http://127.0.0.1:8000/battle2/${data.id}`
         if (window_url.charAt(9)=='7') {
           link.href = local_url
           link.innerHTML = `Successful! Your link: ${local_url}`

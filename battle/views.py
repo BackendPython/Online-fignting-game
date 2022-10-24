@@ -25,7 +25,6 @@ def signup(request):
     
     return render(request, 'registration/signup.html', context)
 
-
 def battle(request, pk):
     
     battle_id = Battle.objects.get(id=pk)
@@ -36,6 +35,15 @@ def battle(request, pk):
     
     return render(request, 'pages/battle.html', context)
 
+def battle2(request, pk):
+    
+    battle_single = Battle_tic_tacoe.objects.get(id=pk)
+    
+    context = {
+        'battle_single': battle_single,
+    }
+    
+    return render(request, 'pages/tictacoe.html', context)
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
 
 # get carusel
