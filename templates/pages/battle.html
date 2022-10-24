@@ -17,6 +17,7 @@
     <title>JS work</title>
   </head>
   <body>
+
     <!-- full site -->
     <div class="full">
       <!-- rotation phone -->
@@ -653,7 +654,7 @@
                 .then((data) => {
                   change = false
                   submit = true
-                  console.log('succes', data);
+                  console.log('succes', '{{ csrf_token }}');
                 })
                 .catch((error) => {
                   console.error("Error:", error);
@@ -681,7 +682,7 @@
 
               // Function to hide the loader
               function hideloader() {
-                console.log('succes get');
+                
               }
               // Function to define innerHTML for HTML table
               function show(data) {
@@ -701,11 +702,11 @@
                 rival_details.blow_turn = data.rival_blow_turn
                 rival_details.winner = data.rival_winner
                 all_number = data.all_players
-                if (data.first_player=='{{ request.user.username }}') {
-                  submit = true
-                }
                 if (data.first_player!='{{ request.user.username }}'&&data.second_player=='null') {
                   post_data('{{ request.user.username }}')
+                }
+                else{
+                  post_data(second_player)
                 }
                 }
               }
@@ -716,15 +717,14 @@
               selectPlayer = 'online'
             }
 
-            function remove_fireball() {
-                fireball = document.querySelectorAll('.fireball')
-                fireball.forEach(function(fireball){
-                    fireball.remove()
-                })
-            }
+            // function remove_fireball() {
+            //     fireball = document.querySelectorAll('.fireball')
+            //     fireball.forEach(function(fireball){
+            //         fireball.remove()
+            //     })
+            // }
 
             function reload_game() {
-                remove_fireball()
                 gameStart = false;
                 rival_details.heal = 100;
                 player_details.heal = 100;
@@ -742,7 +742,6 @@
             }
 
             function battleTime(){
-                remove_fireball()
                 heals.style.display = 'flex';
                 rival[0].style.display = 'flex';
                 character.style.display = 'flex';
@@ -752,7 +751,6 @@
             }
 
             function startTime(){
-                remove_fireball()
                 heals.style.display = 'none';
                 rival[0].style.display = 'none';
                 character.style.display = 'none';
@@ -919,6 +917,8 @@
                 rival.forEach(function(rival){
                     let characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'))
                     let rivalLeft = parseInt(window.getComputedStyle(rival).getPropertyValue('left'))
+                    character.style.left = player_details.left + '%';
+                    rival.style.right = rival_details.right + '%';
                     if (rivalStatus=='idle2') {
                         rival.style.animation = 'idle2 1s infinite'
                     }
@@ -1064,15 +1064,8 @@
             // online gameplay
 
             let online_connect = setInterval(() => {
-              if (change==false) {
                 get_real()
-              }
-              if (change==true) {
-                post_data()
-              }
-              character.style.left = player_details.left + '%';
-              rival[0].style.right = rival_details.right + '%';
-            }, 10);
+            }, 100);
 
             // player online
             window.addEventListener('keyup', function () {
@@ -1082,7 +1075,7 @@
                     switch (event.key) {
                         case "a":
                             characterStatus = 'walk'
-                            if (characterLeft>100&&player_details.jump==false) {
+                            if (data_org.player_left>2&&player_details.jump==false) {
                                 player_left_remove()
                             }
                             break;
@@ -1105,28 +1098,27 @@
                         default:
                             break;
                     }
-                    post_data()
-                    change = true
+                    post_data(second_player)
                 }
             })
 
               // rival online
               window.addEventListener('keyup', function(event){
-                if (gameStart==true&&selectPlayer==true&&errorRotate==false) {
+                if (gameStart==true&&selectPlayer=='online'&&errorRotate==false&&second_player=='{{ request.user.username }}') {
                     rival.forEach(function(rival2){
                         let rivalLeft = parseInt(window.getComputedStyle(rival2).getPropertyValue('left'))
                         let rivalRight = parseInt(window.getComputedStyle(rival2).getPropertyValue('right'))
                         switch (event.key) {
                             case "ArrowLeft":
-                              if (rivalLeft>100&&rival_details.jump==false) {
+                              if (data_org.riavl_right>2&&rival_details.jump==false) {
                                   rivalStatus = 'walk2';
                                     rival_right_add()
                                 }
                                 break;
                             case "ArrowRight":
-                                if (rival_details.jump==false) {
+                                if (data_org.riavl_right<90&&rival_details.jump==false) {
                                     rivalStatus = 'walk2';
-                                    rival_right_add()
+                                    rival_right_remove()
                                 }
                                 break;
                             case "ArrowDown":
@@ -1143,6 +1135,7 @@
                                 break;
                         }
                     })
+                    post_data(second_player)
                 }
             })
             // phone media controller

@@ -83,6 +83,9 @@ def battle_single_delete(request, pk):
 
 # ---------------------------------------------------------------- battle REST API ----------------------------------------------------------------
 
+def token(request):
+    return render(request, 'includes/token.html')
+
 def battle_create(request):
     battle_edit = Battle.objects.count()
     if request.method == 'POST':

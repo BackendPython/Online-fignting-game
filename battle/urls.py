@@ -12,7 +12,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     
-    path('battle', battle_api, name='battle'),
+    path('battle/', battle_api, name='battle'),
+    path('token/', token, name='token'),
     path('battle-add', battle_add, name='battle_add'),
     path('battle-<int:pk>', battle_single, name='battle_single'),
     path('battle-create', battle_create, name='battle_create'),
