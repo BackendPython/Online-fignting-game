@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
 <body>
 
     <div class="tictacoe">
+        <div class="result_box"></div>
         <div class="cubs">
             <div class="cub"></div>
             <div class="cub"></div>
@@ -23,21 +25,80 @@
     </div>
     
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body{
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
         }
         .tictacoe{
             width: 100%;
+            height: 100vh;
             display: flex;
-            min-height: 100vh;
+            position: relative;
+            align-items: center;
+            background-size: cover;
+            justify-content: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url("{% static 'images/select-background.png' %}");
+        }
+        .tictacoe .result_box{
+            top: 20%;
+            width: 20%;
+            height: 5%;
+            display: flex;
+            color: wheat;
+            position: absolute;
+            text-align: center;
             align-items: center;
             justify-content: center;
         }
+        .tictacoe .cubs{
+            width: 25%;
+            height: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 10%;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid gray;
+            background-color: yellow;
+        }
+        .cubs .cub{
+            width: 25%;
+            height: 25%;
+            font-size: 20px;
+            margin-left: 2%;
+            margin-right: 2%;
+            background-color: white;
+            border: 2px solid black;
+        }
+
+
     </style>
 
+
+
+<script>
+    let result_box = document.querySelector('.result_box')
+    let cub_boxes = document.querySelectorAll('.cub')
+    let cubs = document.querySelector('.cubs')
+
+
+    cub_boxes.forEach(function (cub) {
+        cub.addEventListener('click', function () {
+            if (cub.innerHTML == '') {
+                cub.innerHTML = 'x'
+            }
+        })
+    })
+
+</script>
 
 </body>
 </html>

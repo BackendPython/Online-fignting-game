@@ -32,6 +32,15 @@ class Battle(models.Model):
         return f"{self.first_player} vs {self.second_player}"
     
 class Battle_tic_tacoe(models.Model):
+    box_1 = models.CharField(max_length=10)
+    box_2 = models.CharField(max_length=10)
+    box_3 = models.CharField(max_length=10)
+    box_4 = models.CharField(max_length=10)
+    box_5 = models.CharField(max_length=10)
+    box_6 = models.CharField(max_length=10)
+    box_7 = models.CharField(max_length=10)
+    box_8 = models.CharField(max_length=10)
+    box_9 = models.CharField(max_length=10)
     first_player = models.CharField(max_length=50)
     second_player = models.CharField(max_length=50)
     rival_turn = models.BooleanField(default=False)
