@@ -117,19 +117,18 @@
 
     function name_post(second_player_name) {
         game_detals.second_player = second_player_name
-        setTimeout(() => {
-            edit_api()
-        }, 100);
+        edit_api()
     }
 
     setTimeout(() => {
-        if (game_detals.first_player!='{{ request.user.username }}'&&game_detals.second_player=='null') {
+        if (game_detals.first_player!=='{{ request.user.username }}'&&game_detals.second_player=='null') {
             name_post('{{ request.user.username }}')
         }
         else{
             name_post(game_detals.second_player)
+            console.log('error name post');
         }
-    }, 1000);
+    }, 100);
 
     function get_api(){
               const api_url = `/battle2-${battle_id}`;
@@ -206,198 +205,206 @@
         edit_api()
     }
     
+    function friendship() {
+        game_detals.rival_winner = false
+        game_detals.player_winner = true
+        edit_api()
+    }
 
     cub_boxes.forEach(function (cub) {
         cub.addEventListener('click', function () {
-            //  cub 1
-            if (cub.id==1) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_1 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+            
+            if (game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                    //  cub 1
+                    if (cub.id==1) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_1 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_1 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_1 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 2
-            else if (cub.id==2) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_2 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 2
+                    else if (cub.id==2) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_2 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_2 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_2 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 3
-            else if (cub.id==3) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_3 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 3
+                    else if (cub.id==3) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_3 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_3 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_3 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 4
-            else if (cub.id==4) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_4 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 4
+                    else if (cub.id==4) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_4 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_4 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_4 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 5
-            else if (cub.id==5) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_5 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 5
+                    else if (cub.id==5) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_5 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_5 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_5 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 6
-            else if (cub.id==6) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_6 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 6
+                    else if (cub.id==6) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_6 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_6 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_6 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 7
-            else if (cub.id==7) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_7 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 7
+                    else if (cub.id==7) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_7 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_7 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_7 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 8
-            else if (cub.id==8) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_8 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 8
+                    else if (cub.id==8) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_8 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_8 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_8 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
-            // cub 9
-            else if (cub.id==9) {
-                if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
-                    if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
-                        game_detals.box_9 = 'x'
-                        game_detals.rival_turn = true
-                        game_detals.player_turn = false
-                        edit_api()
+                    // cub 9
+                    else if (cub.id==9) {
+                        if (cub.innerHTML == ''&&game_detals.player_winner==false&&game_detals.rival_winner==false) {
+                            if (game_detals.player_turn==true&&game_detals.rival_turn==false&&game_detals.first_player=='{{ request.user.username }}') {
+                                game_detals.box_9 = 'x'
+                                game_detals.rival_turn = true
+                                game_detals.player_turn = false
+                                edit_api()
+                            }
+                            else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
+                                game_detals.box_9 = 'o'
+                                game_detals.rival_turn = false
+                                game_detals.player_turn = true
+                                edit_api()
+                            }
+                            else{
+                                console.log(cub.id);
+                            }
+                        }
                     }
-                    else if(game_detals.player_turn==false&&game_detals.rival_turn==true&&game_detals.second_player=='{{ request.user.username }}'){
-                        game_detals.box_9 = 'o'
-                        game_detals.rival_turn = false
-                        game_detals.player_turn = true
-                        edit_api()
-                    }
-                    else{
-                        console.log(cub.id);
-                    }
-                }
-            }
 
+            }
 
         })
     })
@@ -413,7 +420,7 @@
             b6 = game_detals.box_6,
             b7 = game_detals.box_7,
             b8 = game_detals.box_8,
-            b9 = game_detals.box_9
+            b9 = game_detals.box_9;
 
             let all_box = [b1,b2,b3,b4,b5,b6,b7,b8,b9]
             let type_count = 0
@@ -423,61 +430,61 @@
 
                     // 1 2 3
                     if (b1=='x'&&b2=='x'&&b3=='x') {
-                        console.log('player winner');
+                        player_winner()
                     }
 
                     // 4 5 6
                     else if (b4=='x'&&b5=='x'&&b6=='x') {
-                        console.log('player winner');
+                        player_winner()
                     }
 
                     // 7 8 9
                     else if (b7=='x'&&b8=='x'&&b8=='x') {
-                        console.log('player winner');
+                        player_winner()
                     }
 
                     // 1 5 9
                     else if (b1=='x'&&b5=='x'&&b9=='x') {
-                        console.log('player winner');
+                        player_winner()
                     }
 
                     // 3 5 7
                     else if (b3=='x'&&b5=='x'&&b7=='x') {
-                        console.log('player winner');
+                        player_winner()
                     }
 
                     // rival winner
 
                     // 1 2 3
                     else if (b1=='o'&&b2=='o'&&b3=='o') {
-                        console.log('rival winner');
+                        rival_winner()
                     }
 
                     // 4 5 6
                     else if (b4=='o'&&b5=='o'&&b6=='o') {
-                        console.log('rival winner');
+                        rival_winner()
                     }
 
                     // 7 8 9
                     else if (b7=='o'&&b8=='o'&&b8=='o') {
-                        console.log('rival winner');
+                        rival_winner()
                     }
 
                     // 1 5 9
                     else if (b1=='o'&&b5=='o'&&b9=='o') {
-                        console.log('rival winner');
+                        rival_winner()
                     }
 
                     // 3 5 7
                     else if (b3=='o'&&b5=='o'&&b7=='o') {
-                        console.log('rival winner');
+                        rival_winner()
                     }
 
                     else if (all_box) {
                         all_box.filter(function result(value){if (value!='null') {
                             type_count = value.length + 1
                             if (type_count==9) {
-                                console.log('friendship');
+                                friendship()
                             }
                         }})
                         
@@ -546,7 +553,7 @@
             cub_boxes[8].innerHTML = ''
         }
         
-    }, 100);
+    }, 10);
 
 </script>
 
