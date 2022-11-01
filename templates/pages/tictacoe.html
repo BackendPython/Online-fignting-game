@@ -206,7 +206,7 @@
     }
     
     function friendship() {
-        game_detals.rival_winner = false
+        game_detals.rival_winner = true
         game_detals.player_winner = true
         edit_api()
     }
@@ -439,7 +439,22 @@
                     }
 
                     // 7 8 9
-                    else if (b7=='x'&&b8=='x'&&b8=='x') {
+                    else if (b7=='x'&&b8=='x'&&b9=='x') {
+                        player_winner()
+                    }
+
+                    // 1 4 7
+                    else if (b1=='x'&&b4=='x'&&b7=='x') {
+                        player_winner()
+                    }
+
+                    // 2 5 8
+                    else if (b2=='x'&&b5=='x'&&b8=='x') {
+                        player_winner()
+                    }
+
+                    // 3 6 9
+                    else if (b3=='x'&&b6=='x'&&b9=='x') {
                         player_winner()
                     }
 
@@ -466,7 +481,22 @@
                     }
 
                     // 7 8 9
-                    else if (b7=='o'&&b8=='o'&&b8=='o') {
+                    else if (b7=='o'&&b8=='o'&&b9=='o') {
+                        rival_winner()
+                    }
+
+                    // 1 4 7
+                    else if (b1=='o'&&b4=='o'&&b7=='o') {
+                        rival_winner()
+                    }
+
+                    // 2 5 8
+                    else if (b2=='o'&&b5=='o'&&b8=='o') {
+                        rival_winner()
+                    }
+
+                    // 3 6 9
+                    else if (b3=='o'&&b6=='o'&&b9=='o') {
                         rival_winner()
                     }
 
@@ -480,17 +510,34 @@
                         rival_winner()
                     }
 
-                    else if (all_box) {
-                        all_box.filter(function result(value){if (value!='null') {
-                            type_count = value.length + 1
-                            if (type_count==9) {
-                                friendship()
-                            }
-                        }})
-                        
-                    }
+                    all_box.forEach(function (box) {
+                        if (box!='null') {
+                            type_count = type_count + 1
+                                setInterval(() => {
+                                    if (type_count==9) {
+                                        type_count = 0
+                                        friendship()
+                                    }
+                                    else{
+                                        type_count = 0
+                                    }
+                                }, 500);
+                        }
+                        else{
+                            type_count = 0
+                        }
+                    })
         }
         
+        if (game_detals.player_winner==true&&game_detals.rival_winner==false) {
+            result_box.innerHTML = `${game_detals.first_player} won!`
+        }
+        if (game_detals.player_winner==false&&game_detals.rival_winner==true) {
+            result_box.innerHTML = `${game_detals.second_player} won!`
+        }
+        if (game_detals.player_winner==true&&game_detals.rival_winner==true) {
+            result_box.innerHTML = `friendship won!`
+        }
         
 
     }, 500);
@@ -553,7 +600,7 @@
             cub_boxes[8].innerHTML = ''
         }
         
-    }, 100);
+    }, 300);
 
 </script>
 
