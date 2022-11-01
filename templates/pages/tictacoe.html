@@ -121,7 +121,7 @@
     }
 
     setTimeout(() => {
-        if (game_detals.first_player!=='{{ request.user.username }}'&&game_detals.second_player=='null') {
+        if (game_detals.first_player!=='{{ request.user.username }}'&&game_detals.second_player=='null'&&game_detals.first_player!=='null') {
             name_post('{{ request.user.username }}')
         }
         else{
