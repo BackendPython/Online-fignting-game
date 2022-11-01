@@ -14,6 +14,7 @@
     </div>
 </div>
 
+
 <style>
 .successful_box{ 
     width: 120%;
@@ -25,6 +26,11 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+}
+.successful_box a{
+  color: green;
+  font-size: 40px;
+  text-decoration: none;
 }
   .create_form {
     top: 20%;
@@ -84,11 +90,11 @@
         let local_url = `http://127.0.0.1:8000/battle2/${data.id}`
         if (window_url.charAt(9)=='7') {
           link.href = local_url
-          link.innerHTML = `Successful! Your link: ${local_url}`
+          link.innerHTML = `ID: ${data.id} <br>`
         }
         else{
           link.href = host_url
-          link.innerHTML = `Successful! Your link: ${host_url}`
+          link.innerHTML = `ID: ${data.id} <br>`
         }
         // link.href = `https://https://fighting-online.herokuapp.com/battle/${data.id}`
       })
