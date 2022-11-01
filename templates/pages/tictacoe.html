@@ -51,16 +51,18 @@
             background-image: url("{% static 'images/select-background.png' %}");
         }
         .tictacoe .result_box{
-            top: 20%;
+            top: 10%;
             width: 20%;
             height: 5%;
             display: flex;
-            color: wheat;
+            color: yellow;
             font-size: 30px;
+            font-weight: bolder;
             position: absolute;
             text-align: center;
             align-items: center;
             justify-content: center;
+            text-transform: capitalize;
         }
         .tictacoe .cub_boxes{
             width: 25%;
@@ -69,6 +71,7 @@
             flex-wrap: wrap;
             border-radius: 10%;
             align-items: center;
+            position: relative;
             justify-content: center;
             border: 2px solid gray;
             background-color: yellow;
@@ -86,6 +89,82 @@
             border: 2px solid black;
         }
 
+        .win{
+            width: 90%;
+            z-index: 10;
+            height: 1.5%;
+            position: absolute;
+            border-radius: 10px;
+            background-color: green;
+        }
+
+        .win123{
+            top: 17% !important;
+            transform: rotate(0deg) !important;
+        }
+        .win456{
+            top: 50% !important;
+            transform: rotate(0deg) !important;
+        }
+        .win789{
+            top: 84% !important;
+            transform: rotate(0deg) !important;
+        }
+        .win147{
+            left: -24% !important;
+            transform: rotate(90deg) !important;
+        }
+        .win258{
+            left: 5% !important;
+            transform: rotate(90deg) !important;
+        }
+        .win369{
+            left: 34% !important;
+            transform: rotate(90deg) !important;
+        }
+        .win159{
+            left: 5% !important;
+            transform: rotate(130.5deg) !important;
+        }
+        .win357{
+            left: 5% !important;
+            transform: rotate(50deg) !important;
+        }
+        
+
+        @media (max-width: 1000px){
+            .cub_boxes{
+                width: 65% !important;
+                height: 60vh !important;
+            }
+        }
+        @media (max-width: 650px){
+            .cub_boxes{
+                width: 80% !important;
+                height: 60vh !important;
+            }
+        }
+        @media (max-width: 500px){
+            .cub_boxes{
+                width: 80% !important;
+                height: 50vh !important;
+            }
+        }
+        @media (max-width: 450px){
+            .cub_boxes{
+                width: 80% !important;
+                height: 35vh !important;
+            }
+            .cub{
+                font-size: 35px !important;
+            }
+        }
+        @media (max-width: 250px){
+            .cub_boxes{
+                width: 80% !important;
+                height: 30vh !important;
+            }
+        }
 
     </style>
 
@@ -410,7 +489,14 @@
     })
 
 
-    let check_winner = setInterval(() => {
+    let check_winner = setInterval(function win_check() {
+        let win_box = document.querySelector('.win')
+        if (win_box==null) {
+                setTimeout(() => {
+                    game_detals.rival_winner = false
+                    game_detals.player_winner = false
+                }, 500);
+        }
             let 
             b1 = game_detals.box_1,
             b2 = game_detals.box_2,
@@ -426,45 +512,70 @@
             let type_count = 0
 
         if (game_detals.player_winner==false&&game_detals.rival_winner==false) {
+
                     // player winner
 
                     // 1 2 3
                     if (b1=='x'&&b2=='x'&&b3=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win123')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 4 5 6
                     else if (b4=='x'&&b5=='x'&&b6=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win456')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 7 8 9
                     else if (b7=='x'&&b8=='x'&&b9=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win789')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 1 4 7
                     else if (b1=='x'&&b4=='x'&&b7=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win147')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 2 5 8
                     else if (b2=='x'&&b5=='x'&&b8=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win258')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 3 6 9
                     else if (b3=='x'&&b6=='x'&&b9=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win369')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 1 5 9
                     else if (b1=='x'&&b5=='x'&&b9=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win357')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
                     // 3 5 7
                     else if (b3=='x'&&b5=='x'&&b7=='x') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win159')
+                        cubs.appendChild(win_proof)
                         player_winner()
                     }
 
@@ -472,41 +583,65 @@
 
                     // 1 2 3
                     else if (b1=='o'&&b2=='o'&&b3=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win123')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 4 5 6
                     else if (b4=='o'&&b5=='o'&&b6=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win456')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 7 8 9
                     else if (b7=='o'&&b8=='o'&&b9=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win789')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 1 4 7
                     else if (b1=='o'&&b4=='o'&&b7=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win147')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 2 5 8
                     else if (b2=='o'&&b5=='o'&&b8=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win258')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 3 6 9
                     else if (b3=='o'&&b6=='o'&&b9=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win369')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 1 5 9
                     else if (b1=='o'&&b5=='o'&&b9=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win159')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
                     // 3 5 7
                     else if (b3=='o'&&b5=='o'&&b7=='o') {
+                        let win_proof = document.createElement('div')
+                        win_proof.setAttribute('class', 'win win357')
+                        cubs.appendChild(win_proof)
                         rival_winner()
                     }
 
@@ -527,22 +662,23 @@
                             type_count = 0
                         }
                     })
+                    
         }
         
         if (game_detals.player_winner==true&&game_detals.rival_winner==false) {
-            result_box.innerHTML = `${game_detals.first_player} won!`
+            result_box.innerHTML = `${game_detals.first_player} win!`
         }
         if (game_detals.player_winner==false&&game_detals.rival_winner==true) {
-            result_box.innerHTML = `${game_detals.second_player} won!`
+            result_box.innerHTML = `${game_detals.second_player} win!`
         }
         if (game_detals.player_winner==true&&game_detals.rival_winner==true) {
-            result_box.innerHTML = `friendship won!`
+            result_box.innerHTML = `friendship win!`
         }
         
 
-    }, 500);
+    }, 10);
 
-    // setInteval( ---100ms--- )
+    // setInteval( ---300ms--- )
     let innerHTML = setInterval(() => {
         get_api()
         if (game_detals.box_1!='null') {
