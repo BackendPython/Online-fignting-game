@@ -88,7 +88,7 @@
         let link = successful_box.querySelector('a')
         let host_url = `https://fighting-online.herokuapp.com/battle2/${data.id}`
         let local_url = `http://127.0.0.1:8000/battle2/${data.id}`
-        if (window_url.charAt(5)!=='s') {
+        if (window_url.charAt(5)==':') {
           link.href = local_url
           link.innerHTML = `ID: ${data.id}`
         }
@@ -96,7 +96,8 @@
           link.href = host_url
           link.innerHTML = `ID: ${data.id}`
         }
-        // link.href = `https://https://fighting-online.herokuapp.com/battle/${data.id}`
+        console.log(window_url);
+        // link.href = `https://fighting-online.herokuapp.com/battle/${data.id}`
       })
       .catch((error) => {
         console.error("Error:", error);
