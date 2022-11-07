@@ -88,13 +88,13 @@
         let link = successful_box.querySelector('a')
         let host_url = `https://fighting-online.herokuapp.com/battle2/${data.id}`
         let local_url = `http://127.0.0.1:8000/battle2/${data.id}`
-        if (window_url.charAt(8)!=='/') {
+        if (window_url.charAt(9)=='2') {
           link.href = local_url
-          link.innerHTML = `ID: ${data.id} <br>`
+          link.innerHTML = `ID: ${data.id}`
         }
         else{
           link.href = host_url
-          link.innerHTML = `ID: ${data.id} <br>`
+          link.innerHTML = `ID: ${data.id}`
         }
         // link.href = `https://https://fighting-online.herokuapp.com/battle/${data.id}`
       })
